@@ -4,7 +4,7 @@ KAI Design System v4.3 · REA × Claude 交互版。一个可供浏览、复用�
 
 ## 快速开始
 
-- 浏览预览：本机直接用浏览器打开 `index.html` 或 `preview.html`。如果仓库启用 GitHub Pages，根地址会自动跳转到预览。各个 `ui_kits/` 页面是静态示例；没有后端服务。
+- [在线体验设计系统](https://kai1rving-2.github.io/kai-design-system-v4_withREA_claude/)：GitHub Pages 根地址自动进入预览。本机也可以直接用浏览器打开 `index.html` 或 `preview.html`。各个 `ui_kits/` 页面是静态示例；没有后端服务。
 - React 18/19 项目可运行 `npm install github:Kai1rving-2/kai-design-system-v4_withREA_claude`，然后参考下方「生产接入」的导入示例。此包未发布到 npm。
 - 本地开发与验证：安装 Node.js 后运行 `npm install`、`npm run build`、`npm run check`、`npm test`。构建生成预览与组件入口。
 
