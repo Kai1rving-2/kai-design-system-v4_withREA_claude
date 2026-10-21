@@ -1,0 +1,19 @@
+<!-- @dsCard group="Mobile" viewport="700x200" name="字号塌缩" subtitle="只动大字档 · 小的依然小" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { padding: 20px 24px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); }
+</style>
+</head>
+<body>
+<div style="display:flex;gap:40px;align-items:flex-end;flex-wrap:wrap;">
+  <div><p style="font-family:var(--font-serif);font-weight:var(--weight-editorial);font-size:44px;line-height:1.1;">桌面 44</p><p class="lbl" style="margin-top:6px;">Display</p></div>
+  <div><p style="font-family:var(--font-serif);font-weight:var(--weight-editorial);font-size:28px;line-height:1.15;">移动 28</p><p class="lbl" style="margin-top:6px;">375px 宽下的 Display</p></div>
+</div>
+<p class="lbl" style="margin-top:14px;">塌缩只发生在 Display / Title；Body 以下档位不动——层级关系不变，只变绝对尺寸。</p>
+</body>
+</html>

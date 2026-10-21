@@ -1,0 +1,59 @@
+<!-- @dsCard group="Components" viewport="700x1150" name="Charts 图表" subtitle="KAI 图表语言" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Charts</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { padding: 24px 32px; }
+  .cap { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin: 28px 0 12px; }
+  .cap:first-child { margin-top: 0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const ds = window.KaiDesignSystemV4_3b9cf5;
+
+const weekly = [6.5, 7.2, 5.8, 8.1, 9.4, 7.6, 11.2, 10.5, 12.8, 11.4, 13.6, 14.0];
+
+function Demo() {
+  return (
+    <div>
+      <div className="cap">LineChart · 本周专注（小时 / 周）</div>
+      <ds.LineChart data={weekly} labels={['6月中', '现在']}
+        annotation={{ index: 7, label: '垦丁回来那天' }} />
+
+      <div className="cap">BarChart · 每日专注（小时）</div>
+      <ds.BarChart data={[
+        { label: '一', value: 2.5 }, { label: '二', value: 1.5 }, { label: '三', value: 3.0 },
+        { label: '四', value: 2.0 }, { label: '五', value: 3.5 }, { label: '六', value: 1.5 },
+      ]} />
+
+      <div className="cap">SparkLine · 近 14 日趋势</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <ds.SparkLine data={[3, 4, 2, 5, 4, 6, 5, 4, 6, 7, 5, 6, 8, 7]} />
+        <span className="kai-stat-delta">+2.3h ↗</span>
+      </div>
+
+      <div className="cap">DataTable · XGBoost 实验日志</div>
+      <ds.DataTable
+        columns={['轮次', '特征数', 'AUC', '耗时']}
+        align={{ 特征数: 'right', AUC: 'right', 耗时: 'right' }}
+        rows={[
+          ['第 2 轮', '32', '0.794', '14m'],
+          ['第 3 轮', '41', '0.806', '18m'],
+          ['第 4 轮', '48', '0.812', '21m'],
+        ]} />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

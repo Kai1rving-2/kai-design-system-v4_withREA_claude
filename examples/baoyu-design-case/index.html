@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="用 KAI Design System v4 阅读 baoyu-design：从安装、设计工作流到课件学习 HTML。">
+  <title>baoyu-design · 从设计工作流到学习页面 | KAI Case Study</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="./app.css">
+  <script src="./app.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="header-inner"><a class="kai-wordmark" href="#top">KAI<span> · </span>FIELD NOTES</a><span class="header-label">CASE STUDY / 01</span><a class="header-return" href="../learning-html/">学习实验 ↗</a></div>
+  </header>
+  <div class="page-layout">
+    <aside class="toc" aria-label="本页目录"><div class="toc-inner">
+      <p class="toc-label">阅读导航 <span id="read-progress">01 / 10</span></p>
+      <nav aria-label="章节导航">
+        <a href="#intro" aria-current="location"><span>01</span> 导语</a>
+        <a href="#what"><span>02</span> 它是什么</a>
+        <a href="#install"><span>03</span> 安装与接入</a>
+        <a href="#inside"><span>04</span> 内部工作方式</a>
+        <a href="#scenes"><span>05</span> 适用场景</a>
+        <a href="#kai"><span>06</span> 与 KAI v4</a>
+        <a href="#learning"><span>07</span> 课件学习</a>
+        <a href="#prompts"><span>08</span> 可复用 Prompt</a>
+        <a href="#limits"><span>09</span> 优势与边界</a>
+        <a href="#next"><span>10</span> 下一步</a>
+      </nav>
+      <div class="toc-note">一份设计方法的拆解，也是一页可动手的学习型 HTML 示例。</div>
+    </div></aside>
+    <main id="main">
+      <section id="intro" class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">DESIGN METHOD / LEARNING PRACTICE</p>
+        <h1 id="hero-title">让 AI <em>以设计师的方式</em><br>工作，而不只是写网页。</h1>
+        <p class="hero-lead"><strong>baoyu-design 是一套给本地 AI agent 使用的设计 Skill / 工作流。</strong>它让设计从理解需求、寻找真实视觉语境开始，经过探索和可交互原型，再沉淀为可以反复使用的视觉系统。</p>
+        <div class="hero-actions"><a class="kai-btn kai-btn--primary" href="#learning">先看课件学习 →</a><a class="quiet-link" href="#install">查看安装方法 ↗</a></div>
+        <div class="hero-foot"><span>不是一个新模型</span><span>不只是生成 HTML</span><span>一次设计，可以成为下一次的起点</span></div>
+      </section>
+      <div class="content-body">
+        <section id="what" class="chapter" aria-labelledby="what-title"><div class="chapter-head"><span class="chapter-number">01 / UNDERSTAND</span><h2 id="what-title">先弄清：它是什么？</h2><p>它将设计方法、工具适配和现成脚手架组合成一个 Agent Skill。模型仍然由你使用的 Codex、Claude Code 或 Cursor 环境提供；Skill 为 agent 提供做设计的流程与标准，而不是替换模型。<a href="#sources">来源 ↗</a></p></div>
+          <div class="thesis"><span>一句话辨别</span><p>普通指令容易直奔“给我一个页面”；设计工作流会先问“给谁看、要理解什么、沿用什么视觉语言”，再决定页面该怎样组织。</p></div>
+          <div class="table-wrap"><table><caption>两种工作方式的对照；右侧描述的是工作流提供的支持，并非每次调用都会自动完成所有步骤。</caption><thead><tr><th scope="col">观察维度</th><th scope="col">普通“AI 写网页”</th><th scope="col">baoyu-design 驱动的工作流</th></tr></thead><tbody><tr><th scope="row">设计理解</th><td>常常直接实现一句需求</td><td>先确认受众、约束和视觉参考</td></tr><tr><th scope="row">方案探索</th><td>通常交付单一答案</td><td>可以对布局、交互或视觉方向做多方案探索</td></tr><tr><th scope="row">交互原型</th><td>可能停在静态排版</td><td>按任务选择可操作的 HTML 原型</td></tr><tr><th scope="row">Design System</th><td>样式容易在不同页面间漂移</td><td>可创建、绑定并复用 tokens / 组件 / 起始页</td></tr><tr><th scope="row">长期维护</th><td>代码可保留，但规范往往靠记忆</td><td>输出留在项目里，可持续迭代与同步视觉约束</td></tr><tr><th scope="row">复杂内容</th><td>容易变成连续段落</td><td>可选图解、交互和分层阅读结构</td></tr></tbody></table></div>
+          <p class="side-note">请注意：以上是“工作方法对比”，不是对所有普通 prompt 的绝对判断；有经验的设计师也能用精心写的普通 prompt 实现类似流程。</p>
+        </section>
+        <section id="install" class="chapter" aria-labelledby="install-title"><div class="chapter-head"><span class="chapter-number">02 / SET UP</span><h2 id="install-title">安装，然后让 agent 读到它</h2><p>以下命令来自项目的官方 README；需要 Node.js 来运行 <code>npx</code>。安装器会将 Skill 文件放到相应 agent 的 skills 目录；它不是网页运行时依赖。<a href="https://github.com/JimLiu/baoyu-design#quick-start" target="_blank" rel="noopener noreferrer">官方说明 ↗</a></p></div>
+          <div class="step-list"><div class="step"><span class="step-no">01</span><div><h3>选择范围：项目内 or 全局</h3><p>只想在当前项目试用、便于团队一同管理时选项目内；希望多个项目都能调用时选全局。在目标项目的终端执行：</p><div class="code-box"><div class="code-heading"><span>安装 / Codex</span><button type="button" class="copy-btn" data-copy="command-install">复制命令</button></div><pre id="command-install"><code># 仅当前项目（明确指定 Codex）
+npx skills add JimLiu/baoyu-design --agent codex
+
+# 所有项目（全局）
+npx skills add JimLiu/baoyu-design -g --agent codex</code></pre></div><p class="small-note">Claude Code 或 Cursor 可将 <code>codex</code> 分别替换为 <code>claude-code</code> / <code>cursor</code>；也可省略 <code>--agent</code> 交给 CLI 检测。项目内通常位于 <code>.agents/skills/</code>（Codex / Cursor）或 <code>.claude/skills/</code>（Claude Code），全局则位于用户目录对应位置；以安装器输出为准。</p></div></div>
+          <div class="step"><span class="step-no">02</span><div><h3>验证与调用</h3><p>先用 <code>--list</code> 查看可安装的 Skill；安装完成后检查对应 skills 目录是否包含 <code>baoyu-design/SKILL.md</code>，新开 agent 会话，再在任务里显式指定：</p><div class="code-box"><div class="code-heading"><span>验证 / 调用示例</span><button type="button" class="copy-btn" data-copy="verify">复制示例</button></div><pre id="verify"><code>npx skills add JimLiu/baoyu-design --list
+
+# Codex prompt（Skill 已被当前环境识别时）
+请用 $baoyu-design，为我的课程讲义设计一个可交互的学习 HTML。
+先梳理知识点与来源页码，再探索内容结构，最后验证页面。
+
+# Claude Code：可在输入框使用 /baoyu-design</code></pre></div><p class="small-note">验证“可调用”不只看目录：还应确认 agent 新会话能识别 Skill，并能按它的流程输出设计。不同 agent 的显式触发语法并不完全相同。</p></div></div>
+          <div class="step"><span class="step-no">03</span><div><h3>之后怎样更新？</h3><div class="code-box"><div class="code-heading"><span>更新 / 按安装范围</span><button type="button" class="copy-btn" data-copy="update">复制命令</button></div><pre id="update"><code># 当前项目
+npx skills update baoyu-design -p -y
+
+# 全局安装
+npx skills update baoyu-design -g -y</code></pre></div><p>更新后重启 agent 或重新开启会话，让新版本文件被重新载入；如需保守升级，先查看更新内容。</p></div></div></div>
+        </section>
+        <section id="inside" class="chapter" aria-labelledby="inside-title"><div class="chapter-head"><span class="chapter-number">03 / THE ENGINE</span><h2 id="inside-title">它是怎样工作的？</h2><p>把它看成「入口 → 方法 → 专项工具 → 可复用产物」比把它看成一句万能提示词更准确。下图是依据官方项目结构绘制的教学抽象，而非每个任务的强制执行顺序。<a href="https://github.com/JimLiu/baoyu-design#how-it-works" target="_blank" rel="noopener noreferrer">结构依据 ↗</a></p></div>
+          <figure class="diagram"><figcaption><strong>A / 从问题到可复用设计</strong><span>每一步都可以返回上一环节修订</span></figcaption><div class="flow flow-a" role="img" aria-label="用户需求交给 agent，加载 baoyu-design，进行设计理解和方案探索，生成交互式 HTML 原型，再沉淀设计系统，供后续项目复用"><div class="node"><small>INPUT</small><strong>用户需求</strong><span>目标 / 受众 / 素材</span></div><div class="node"><small>ROUTE</small><strong>Agent + Skill</strong><span>调用匹配的设计流程</span></div><div class="node"><small>THINK</small><strong>设计理解</strong><span>语境 / 多方案探索</span></div><div class="node"><small>MAKE</small><strong>HTML 原型</strong><span>预览 / 交互 / 验证</span></div><div class="node"><small>REUSE</small><strong>Design System</strong><span>沉淀 → 后续复用</span></div></div></figure>
+          <figure class="diagram"><figcaption><strong>B / Skill 目录的职责分工</strong><span>虚线表示按任务选择，不是全部都要加载</span></figcaption><div class="module-diagram" role="img" aria-label="baoyu-design 包含 SKILL.md 入口、system-prompt.md 设计方法、references 工具映射、built-in-skills 专项能力与 starter-components 起始组件；最后产生 HTML 或设计系统等产物"><div class="module-root"><strong>baoyu-design</strong><span>可移植 Agent Skill</span></div><div class="module-grid"><div><code>SKILL.md</code><span>入口 · 路由任务</span></div><div><code>system-prompt.md</code><span>方法 · 工艺标准</span></div><div><code>references/</code><span>适配不同 agent 的工具</span></div><div><code>built-in-skills/</code><span>按任务调用的专项方法</span></div><div><code>starter-components/</code><span>原型 / 图表 / 幻灯片脚手架</span></div></div><div class="module-output">↓ &nbsp; HTML / 交互原型 / slides / Design System 等可编辑产物</div></div></figure>
+          <div class="explain-grid"><article><h3>入口与核心</h3><p><code>SKILL.md</code> 负责让 agent 识别任务、加载适当文件；<code>system-prompt.md</code> 规定设计过程与质量要求。它们提供方法，不会自行理解你的课件或运行一个新模型。</p></article><article><h3>专项与产物</h3><p><code>built-in-skills/</code> 将交互原型、幻灯片、图解、设计系统创建与使用等任务拆开；<code>starter-components/</code> 提供可复用的界面脚手架。视觉系统可在探索后沉淀，再约束之后的页面。</p></article></div>
+        </section>
+        <section id="scenes" class="chapter" aria-labelledby="scenes-title"><div class="chapter-head"><span class="chapter-number">04 / CHOOSE WELL</span><h2 id="scenes-title">适合做什么，不必做什么</h2><p>不是每个任务都要启动完整设计流程。先问：内容有多复杂？读者需要操作吗？这套视觉会不会持续使用？</p></div><div class="scenario-grid"><article><span>01 / INTERFACE</span><h3>UI / 页面设计</h3><p>适合：有品牌语境、信息层级或多种布局要权衡。<br>不太适合：只调整一个按钮的文案。</p></article><article><span>02 / PROTOTYPE</span><h3>交互原型</h3><p>适合：验证操作路径、状态和反馈。<br>不太适合：把 HTML 原型当成未经测试的正式产品。</p></article><article><span>03 / SYSTEM</span><h3>个人 Design System</h3><p>适合：多个项目需要同一种字体、颜色、组件和语气。<br>不太适合：只会用一次的单页海报。</p></article><article><span>04 / PRESENT</span><h3>Slides / 信息展示</h3><p>适合：用节奏与图解讲清复杂概念。<br>不太适合：需要直接替代严谨的论文或原始讲义。</p></article><article><span>05 / READ</span><h3>内容型学习页面</h3><p>适合：需要概念分层、比较、练习和复习路径。<br>不太适合：原文仅一段、没有可解释结构的摘要。</p></article><article><span>06 / EVOLVE</span><h3>已有视觉的沉淀</h3><p>适合：已有代码、UI kit 或风格规范，想持续复用。<br>不太适合：没有审核就让 AI 擅自定义品牌。</p></article></div><div class="choice-note"><strong>简单静态 HTML 就够时：</strong>一页摘要、一个列表、几张知识卡片，只要阅读顺畅就先做轻。需要反复迭代的长期项目，再投入系统化的组件和视觉约束。</div></section>
+        <section id="kai" class="chapter" aria-labelledby="kai-title"><div class="chapter-head"><span class="chapter-number">05 / LOCAL PRACTICE</span><h2 id="kai-title">设计方法，与我自己的 KAI v4</h2><p>这份仓库已沉淀 KAI v4 的字体、色彩、组件、交互状态与示例；它是可以直接使用的个人视觉语言。baoyu-design 则更像探索和生产视觉语言时的设计方法与 agent 工作流。<a href="../../readme.md">KAI v4 指南 ↗</a></p></div><div class="relation"><div><span>EXPLORE / CREATE</span><h3>baoyu-design</h3><p>协助提问、比较方向、做原型；需要时帮助把决定整理为 Design System。</p></div><div class="relation-sign" aria-hidden="true">↔</div><div><span>REUSE / REFINE</span><h3>KAI v4</h3><p>已沉淀的 Quiet Base + Signature；新页面优先沿用现成的视觉和交互规范。</p></div></div><p class="side-note">关于“当初如何创作 v4”：现有仓库记录的是 v4 从 v3 做减法、形成规范的过程；这里仅用“方法辅助探索、系统负责稳定输出”概括两者关系，不虚构具体历史步骤或把 KAI v4 说成某个工具自动生成的结果。</p></section>
+        <section id="learning" class="chapter chapter-learning" aria-labelledby="learning-title"><div class="chapter-head"><span class="chapter-number">06 / LEARNING HTML · FOCUS</span><h2 id="learning-title">把一份课件，变成一页能学的 HTML</h2><p>目标不是把 PDF 换一种排版，而是让概念有入口、难点能观察、结论能复习。设计 Skill 负责<strong>如何表达和组织</strong>；课件理解、事实核对和教学逻辑仍需要单独完成。</p></div><figure class="diagram learning-diagram"><figcaption><strong>C / 日常课件学习路径</strong><span>先理解，再设计；核对贯穿全程</span></figcaption><div class="flow flow-learning" role="img" aria-label="上传课件 PDF，抽取内容与页码，梳理结构化知识点并核对事实，使用 baoyu-design 设计页面，制作交互式学习 HTML，复习、分享并修改"><div class="node"><small>SOURCE</small><strong>课件 PDF</strong><span>文件 / 页码</span></div><div class="node"><small>READ</small><strong>内容提取</strong><span>概念 / 例题</span></div><div class="node"><small>CHECK</small><strong>结构与核对</strong><span>出处 / 逻辑 / 事实</span></div><div class="node"><small>DESIGN</small><strong>baoyu-design</strong><span>组织 / 可视化 / 交互</span></div><div class="node"><small>LEARN</small><strong>学习 HTML</strong><span>练习 / 复习 / 分享</span></div></div></figure>
+          <div class="learning-columns"><article><span class="chapter-number">页面可以包含</span><ul class="check-list"><li>概念讲解：先定义，再举例，再指出常见误解。</li><li>分步可视化：把抽象过程拆成可以暂停观察的步骤。</li><li>知识卡片与对比表格：帮助建立差异与联系。</li><li>小测试与重要结论：检查理解，方便回看。</li><li>原课件页码：对每个关键结论标注真实出处。</li></ul></article><article class="caution"><span class="chapter-number">不要省略的核对</span><p>先读取 PDF 中的正文、图表与公式，确认页码；再检查概念与推导是否忠于讲义，必要时查教材或原文。Skill 不会自动保证知识正确，更不能替代授课者的判断。互动题必须给出正确答案的理由，而不只是“答对了”。</p></article></div>
+          <h3 class="subheading">推荐工作流：按难度逐级加深</h3><div class="tier-list"><div><span>LIGHT / 轻</span><strong>简单课件总结</strong><p>提取大纲 → 核对页码 → 静态标题、列表与结论。一个清楚的 HTML 即可。</p></div><div><span>MEDIUM / 中</span><strong>中等复杂度学习 HTML</strong><p>画出概念关系 → 设计分步图解 → 加一两道可解释的自测 → 让同学试读。</p></div><div><span>DEEP / 深</span><strong>复杂交互式学习项目</strong><p>先定义学习目标与状态 → 做原型与测试 → 复用组件和 KAI v4 → 验证内容、无障碍与移动端。</p></div></div><div class="choice-note"><strong>与未来 learning-html 的衔接：</strong>本仓库的 <a href="../learning-html/">learning-html 示例 ↗</a> 已展示“观察 → 操作 → 自测”的轻量结构。未来可以让 baoyu-design 帮忙探索知识的呈现方式，同时让 KAI v4 固定视觉和交互规范；这是一条可尝试的工作流，不是已经完成的自动化管线。</div></section>
+        <section id="prompts" class="chapter" aria-labelledby="prompts-title"><div class="chapter-head"><span class="chapter-number">07 / TRY IT</span><h2 id="prompts-title">复制一个 Prompt，开始第一版</h2><p>每个示例都要求先读材料、保留来源并验证输出。使用 Codex 且 Skill 已识别时，保留 <code>$baoyu-design</code>；其他 agent 请按自己的 Skill 调用方式替换。</p></div><div class="prompt-list"><article><div class="prompt-top"><div><span>01 / 一份课件，一个可复习页面</span><h3>学习型 HTML 页面</h3></div><button type="button" class="copy-btn" data-copy="prompt-1">复制 Prompt</button></div><pre id="prompt-1"><code>请使用 $baoyu-design，将我提供的课件 PDF 制作成一个中文学习型 HTML 页面。
+先提取章节、概念、公式和例题，列出对应的原课件页码；不确定的地方先标出待核对。
+面向第一次学习这门课的人，组织为：导读 → 概念解释 → 分步图解 → 对比表 → 2 道有解释的自测 → 结论。
+沿用本仓库的 KAI Design System v4；使用原生 HTML/CSS/JS，保持移动端可读；完成后请检查事实、交互和页码引用。</code></pre></article><article><div class="prompt-top"><div><span>02 / 找到个人学习页面的审美</span><h3>探索视觉方向</h3></div><button type="button" class="copy-btn" data-copy="prompt-2">复制 Prompt</button></div><pre id="prompt-2"><code>请使用 $baoyu-design，阅读当前仓库的 SKILL.md、readme.md、styles.css 与 learning-html 示例。
+基于 KAI v4 探索 2 种学习页面的信息组织方式：一种适合速读复习，一种适合循序渐进理解。
+保持 KAI 的安静基底、克制的蓝色和清晰的交互状态；对每种方案说明适合的课程材料、取舍及未来可复用的组件。
+先给出结构和比较，再实现我选择的一种，不要修改设计系统的生成文件。</code></pre></article><article><div class="prompt-top"><div><span>03 / 一门课，逐步解释的交互</span><h3>Explainable HTML</h3></div><button type="button" class="copy-btn" data-copy="prompt-3">复制 Prompt</button></div><pre id="prompt-3"><code>请使用 $baoyu-design，为我上传的课程讲义设计一个可解释的交互式学习 HTML。
+先从讲义中选择一个值得交互演示的核心概念，核对定义、步骤与来源页码，并写明学习目标。
+设计“先预测 → 动手操作 → 看到过程 → 解释原因 → 自测反馈”的路径；图解使用 HTML/CSS 或 SVG，不用截图代替解释。
+样式沿用 KAI v4，支持键盘与手机；将页面放在独立的 examples 子目录，并列出仍需人工核对的内容。</code></pre></article></div></section>
+        <section id="limits" class="chapter" aria-labelledby="limits-title"><div class="chapter-head"><span class="chapter-number">08 / BE HONEST</span><h2 id="limits-title">它的价值，也有边界</h2></div><div class="balance"><div><h3>有帮助的地方</h3><ul><li>把设计理解、探索、原型验证串成流程。</li><li>能将视觉决定沉淀为 Design System。</li><li>适合需要反复迭代与多人复用的项目。</li><li>有助于让复杂内容变得可阅读、可操作。</li></ul></div><div><h3>依然需要你判断</h3><ul><li>不能自动保证课件内容、页码或公式准确。</li><li>简单任务使用完整流程可能得不偿失。</li><li>复杂教学项目仍要人工审稿与用户测试。</li><li>输出质量取决于模型能力、输入材料与审查。</li></ul></div></div><details class="faq"><summary>常见问题：装好 Skill 后，是不是每页都必须做 Design System？</summary><p>不用。创建系统、使用已有系统、做一张静态学习卡，是不同规模的任务。只有当视觉需要跨多个页面长期复用时，才值得建立完整系统；单次任务从清晰的 HTML 开始即可。</p></details></section>
+        <section id="next" class="chapter final-chapter" aria-labelledby="next-title"><span class="chapter-number">09 / START HERE</span><h2 id="next-title">先拿一份课件，做一个概念。</h2><p>baoyu-design 的核心价值不是替你“生成得更漂亮”，而是让设计过程可讨论、可验证、可复用。对我与朋友来说，它提供一种把讲义转成可理解、可练习页面的方法；KAI v4 则让这些页面有稳定的视觉归属。</p><ol class="next-list"><li>选一份有明确来源页码的课件，只挑一个概念。</li><li>先人工核对定义与例题，再使用上方 Prompt 制作第一版。</li><li>请一位朋友试学：哪里看不懂，就从那里修改。</li></ol><a class="kai-btn kai-btn--primary" href="#prompts">从 Prompt 开始 →</a></section>
+        <footer id="sources" class="sources"><h2>参考与来源</h2><p>项目能力、目录结构与安装命令依据以下公开资料；工作流图和学习场景是本页的教学归纳，不是官方承诺。访问日期：2026-10-20。</p><ul><li><a href="https://github.com/JimLiu/baoyu-design" target="_blank" rel="noopener noreferrer">baoyu-design · GitHub 仓库 ↗</a></li><li><a href="https://github.com/JimLiu/baoyu-design/blob/main/README.md" target="_blank" rel="noopener noreferrer">README · 安装、更新、工作方式 ↗</a></li><li><a href="https://github.com/JimLiu/baoyu-design/blob/main/skills/baoyu-design/SKILL.md" target="_blank" rel="noopener noreferrer">SKILL.md · Skill 入口 ↗</a></li><li><a href="https://github.com/JimLiu/baoyu-design/blob/main/skills/baoyu-design/system-prompt.md" target="_blank" rel="noopener noreferrer">system-prompt.md · 设计方法 ↗</a></li><li><a href="https://github.com/JimLiu/baoyu-design/blob/main/skills/baoyu-design/built-in-skills/design-system-authoring-guide.md" target="_blank" rel="noopener noreferrer">Design system authoring guide ↗</a></li><li><a href="https://github.com/JimLiu/baoyu-design/blob/main/skills/baoyu-design/built-in-skills/use-design-system.md" target="_blank" rel="noopener noreferrer">Use design system ↗</a></li><li><a href="../../readme.md">本仓库 KAI v4 指南 ↗</a> · <a href="../learning-html/">学习实验 ↗</a></li></ul><div class="footer-last"><span>KAI DESIGN SYSTEM v4.3 · 设计是一种照顾。</span><a href="#top">回到顶部 ↑</a></div></footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

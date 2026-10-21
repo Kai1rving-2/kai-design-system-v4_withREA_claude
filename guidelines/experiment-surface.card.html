@@ -1,0 +1,34 @@
+<!-- @dsCard group="Experiments" viewport="700x310" name="实验 · 容器柔和度" subtitle="8 / 12 / 16px 对照 · 采用 12px" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { padding: 20px 24px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); }
+  .panel { flex: 1; padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width:0; }
+  .mini { padding: 12px 14px; font-size: var(--text-label); color: var(--text-1); }
+</style>
+</head>
+<body>
+<div style="display:flex;gap:16px;">
+  <div class="panel" style="border:1px solid var(--border-1);background:var(--page);border-radius:8px;">
+    <span class="lbl">A · 8px</span>
+    <div class="mini" style="background:var(--surface);border:1px solid var(--border-1);border-radius:8px;">更紧凑</div>
+    <span class="lbl">适合输入与小标签；大卡片仍略硬。</span>
+  </div>
+  <div class="panel" style="border:1px solid var(--border-2);background:var(--page);border-radius:12px;">
+    <span class="lbl">B · 12px · 采用</span>
+    <div class="mini" style="background:var(--surface);border:1px solid var(--border-1);border-radius:12px;">柔和但仍清楚</div>
+    <span class="lbl">用于 Surface、阅读卡片与状态框。</span>
+  </div>
+  <div class="panel" style="border:1px solid var(--border-1);background:var(--page);border-radius:16px;">
+    <span class="lbl">C · 16px</span>
+    <div class="mini" style="background:var(--surface);border:1px solid var(--border-1);border-radius:16px;">更柔软</div>
+    <span class="lbl">这个尺度的常规卡片显得偏松。</span>
+  </div>
+</div>
+<p class="lbl" style="margin-top:12px;">只比较圆角，三者都保持 1px 边框、无装饰性阴影。圆润来自形状，不靠浮起效果。</p>
+</body>
+</html>

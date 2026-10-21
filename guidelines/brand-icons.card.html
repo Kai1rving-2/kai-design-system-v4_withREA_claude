@@ -1,0 +1,33 @@
+<!-- @dsCard group="Voice" viewport="700x410" name="符号语言" subtitle="轻线条图标 · 语义清楚 · 少量 Signature" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../_ds_bundle.js"></script>
+<style>
+  body { padding: 24px 28px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); line-height: var(--leading-ui); }
+  .icon-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
+  .icon-cell { display: flex; flex-direction: column; gap: 9px; align-items: center; justify-content: center; min-height: 72px; border: 1px solid var(--border-1); border-radius: var(--radius-md); color: var(--text-2); }
+  .icon-cell span { font: var(--weight-text) var(--text-caption)/var(--leading-ui) var(--font-ui); }
+  .rule { border-top: 1px solid var(--border-1); padding-top: 15px; display: flex; align-items: center; gap: 20px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const ds = window.KaiDesignSystemV4_3b9cf5;
+const items = [['add','添加'],['search','检索'],['arrowRight','继续'],['refresh','重试'],['check','完成'],['clock','进行中'],['alert','需要处理'],['info','说明'],['more','更多'],['spark','签名时刻']];
+function Demo() { return <main>
+  <p className="lbl">符号是阅读路标，不替代动词。统一 24×24 画布、18px 尺寸、1.75px 圆头笔画，颜色继承上下文。</p>
+  <div className="icon-grid">{items.map(([name,label]) => <div className="icon-cell" key={name}><ds.Icon name={name} size={20} /><span>{label}</span></div>)}</div>
+  <div className="rule"><span className="lbl">○ / → / ↗ 保留为文字中的标点式符号；操作图标应伴随文字。spark 只用于少数品牌时刻。</span></div>
+</main>; }
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

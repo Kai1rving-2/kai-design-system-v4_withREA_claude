@@ -1,0 +1,133 @@
+<!-- @dsCard group="UI Kits" viewport="980x900" name="研究流程 · 状态与层级" subtitle="检索 → 处理中 → 结果/失败 · 外框与内层分工" -->
+<!-- @startingPoint section="Screens" subtitle="研究流程 · Surface 层级与 Tooltip" viewport="980x900" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KAI · 研究流程示例</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { background: var(--page); }
+  .flow-shell { max-width: 980px; margin: 0 auto; padding: 0 38px 64px; }
+  .flow-nav { display:flex; justify-content:space-between; align-items:center; padding:22px 0; border-bottom:1px solid var(--border-1); }
+  .flow-brand { font:var(--weight-medium) var(--text-body)/var(--leading-ui) var(--font-ui); color:var(--text-1); letter-spacing:-.01em; }
+  .flow-brand span { color:var(--accent); }
+  .flow-nav-note, .flow-eyebrow { font:var(--weight-medium) var(--text-caption)/var(--leading-ui) var(--font-ui); color:var(--text-3); }
+  .flow-hero { padding:52px 0 30px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; }
+  .flow-hero h1 { font:var(--weight-medium) var(--text-title)/var(--leading-tight) var(--font-ui); color:var(--text-1); margin:10px 0 8px; }
+  .flow-hero p { font:var(--weight-text) var(--text-body-sm)/var(--leading-ui) var(--font-ui); color:var(--text-2); max-width:550px; }
+  .flow-layout { display:grid; grid-template-columns:minmax(0,1fr) 248px; gap:30px; align-items:start; }
+  .flow-main { min-width:0; display:flex; flex-direction:column; gap:20px; }
+  .flow-search .kai-field { flex:1; min-width:0; }
+  .flow-search-row { display:flex; gap:10px; align-items:flex-end; }
+  .flow-search-row .kai-btn { min-height:40px; white-space:nowrap; }
+  .flow-caption { margin:11px 0 0; color:var(--text-3); font:var(--weight-text) var(--text-caption)/var(--leading-ui) var(--font-ui); }
+  .flow-demo-actions { display:flex; gap:12px; align-items:center; margin-top:12px; }
+  .flow-section-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:6px 0 4px; }
+  .flow-section-head h2 { margin:0; color:var(--text-1); font:var(--weight-medium) var(--text-heading)/var(--leading-heading) var(--font-ui); }
+  .flow-results-meta { color:var(--text-3); font:var(--weight-text) var(--text-caption)/var(--leading-ui) var(--font-ui); }
+  .flow-result { border-top:1px solid var(--border-1); padding:18px 2px 19px; }
+  .flow-result:last-child { border-bottom:1px solid var(--border-1); }
+  .flow-result-meta { color:var(--text-3); font:var(--weight-medium) var(--text-caption)/var(--leading-ui) var(--font-ui); margin-bottom:7px; }
+  .flow-result h3 { color:var(--text-1); font:var(--weight-medium) var(--text-body)/var(--leading-ui) var(--font-ui); margin:0 0 6px; }
+  .flow-result p { color:var(--text-2); font:var(--weight-text) var(--text-body-sm)/var(--leading-ui) var(--font-ui); margin:0; }
+  .flow-aside h2 { color:var(--text-1); font:var(--weight-medium) var(--text-body-sm)/var(--leading-ui) var(--font-ui); margin:0 0 12px; }
+  .flow-aside p, .flow-aside li { color:var(--text-2); font:var(--weight-text) var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+  .flow-aside p { margin:0 0 14px; }
+  .flow-aside ul { list-style:none; padding:0; margin:0; }
+  .flow-aside li { border-top:1px solid var(--border-2); padding:11px 0; }
+  .flow-aside li:last-child { padding-bottom:0; }
+  .flow-aside strong { color:var(--text-1); font-weight:var(--weight-medium); }
+  .flow-foot { border-top:1px solid var(--border-1); margin-top:54px; padding-top:16px; color:var(--text-3); font:var(--weight-text) var(--text-caption)/var(--leading-ui) var(--font-ui); }
+  @media (max-width:760px) {
+    .flow-shell { padding:0 20px 48px; }
+    .flow-hero { padding-top:36px; }
+    .flow-layout { grid-template-columns:1fr; gap:24px; }
+    .flow-search-row { flex-wrap:wrap; }
+    .flow-search-row .kai-field { flex-basis:100%; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const ds = window.KaiDesignSystemV4_3b9cf5;
+const notes = [
+  { kind:'输入 · Pattern', title:'保护正在组合的文字', body:'FocusInput 在中文输入法选字时保留 Enter 的原有用途，确认只发生在组合输入结束之后。' },
+  { kind:'过程 · Pattern', title:'让状态可检查', body:'ProcessDisclosure 把进行中、完成与失败说清楚；用户可以打开详情，也能在失败后重试。' },
+  { kind:'滚动 · Pattern', title:'把阅读位置还给用户', body:'StreamViewport 只在读者位于底部时跟随新内容；上滚后保持位置，并提供返回最新内容的入口。' },
+];
+
+function Demo() {
+  const [draft, setDraft] = React.useState('交互');
+  const [committed, setCommitted] = React.useState('交互');
+  const [phase, setPhase] = React.useState('ready');
+  const [error, setError] = React.useState('');
+  const [showHelp, setShowHelp] = React.useState(true);
+  const timer = React.useRef(null);
+  const attempted = React.useRef('交互');
+  React.useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  const results = notes.filter(item => `${item.kind} ${item.title} ${item.body}`.includes(committed));
+  function run(simulateFailure = false, forcedQuery) {
+    const next = (forcedQuery ?? draft).trim();
+    if (!next) { setError('先写下想检索的内容。'); return; }
+    setError('');
+    attempted.current = next;
+    window.clearTimeout(timer.current);
+    setPhase('loading');
+    timer.current = window.setTimeout(() => {
+      if (simulateFailure) setPhase('error');
+      else { setCommitted(next); setPhase('ready'); }
+    }, 650);
+  }
+  function submit(event) { event.preventDefault(); run(); }
+  const status = phase === 'loading' ? 'running' : phase === 'error' ? 'error' : 'success';
+  return <div className="flow-shell">
+    <nav className="flow-nav"><div className="flow-brand">KAI<span> · </span>RESEARCH</div><div className="flow-nav-note">交互流程示例</div></nav>
+    <header className="flow-hero">
+      <div><div className="flow-eyebrow">澄明 · 笃定 · 斜光</div><h1>把线索整理清楚</h1><p>从一个问题开始。状态、结果和恢复动作都留在视线内，但每一层只画必要的边界。</p></div>
+      <ds.IconButton aria-label={showHelp ? '收起使用说明' : '显示使用说明'} tooltipAlign="end" icon={<ds.Icon name="info" />} onClick={() => setShowHelp(value => !value)} />
+    </header>
+    <div className="flow-layout">
+      <main className="flow-main">
+        <ds.Surface variant="outline" className="flow-search">
+          <form onSubmit={submit}>
+            <div className="flow-search-row"><ds.Input label="检索 KAI 交互做法" value={draft} onChange={event => { setDraft(event.target.value); if (error) setError(''); }} error={error} placeholder="例如：输入、过程或滚动" />
+              <ds.Button type="submit" pending={phase === 'loading'} leadingIcon={<ds.Icon name="search" size={16} />}>检索</ds.Button></div>
+          </form>
+          <p className="flow-caption">本地演示资料。检索不会连接网络，也不会改动你的内容。</p>
+          <div className="flow-demo-actions"><ds.Button variant="text" onClick={() => run(true)}>模拟一次读取失败</ds.Button></div>
+        </ds.Surface>
+
+        <ds.ProcessDisclosure status={status} title="整理线索" message={phase === 'loading' ? '正在检索本地资料……' : phase === 'error' ? '这次没有读取成功，上一次结果仍在。' : '当前结果已整理好。'} onRetry={() => run(false, attempted.current)}>
+          <p>此页只演示界面行为。失败后保留上一次结果，重试使用刚才的检索词。</p>
+        </ds.ProcessDisclosure>
+
+        <ds.Surface variant="plain">
+          <div className="flow-section-head"><h2>找到的线索</h2><span className="flow-results-meta">{phase === 'ready' ? `${results.length} 条结果` : '上一次结果'}</span></div>
+          {results.length ? <div>{results.map((item, index) => <article className="flow-result" key={item.title}>
+            <div className="flow-result-meta">{String(index + 1).padStart(2, '0')} / {item.kind}</div>
+            <h3>{item.title}</h3><p>{item.body}</p>
+          </article>)}</div> : <ds.EmptyState title="没有找到相符的线索" body="换一个更短的关键词试试。" />}
+        </ds.Surface>
+      </main>
+      {showHelp ? <aside className="flow-aside"><ds.Surface variant="soft">
+        <h2>这一页在检验什么</h2>
+        <p>把组件放进一个真实顺序，检查它们是否仍然清楚。</p>
+        <ul><li><strong>外层边界</strong><br />检索区使用 outline。</li><li><strong>内层提示</strong><br />说明区只用 soft 底色。</li><li><strong>结果内容</strong><br />列表不用卡片套卡片。</li><li><strong>图标提示</strong><br />悬停或键盘聚焦右上角的圆形按钮。</li></ul>
+      </ds.Surface></aside> : null}
+    </div>
+    <footer className="flow-foot">示例数据 · 只验证交互与层级，不代表真实检索服务</footer>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

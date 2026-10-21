@@ -1,0 +1,56 @@
+<!-- @dsCard group="Components" viewport="700x980" name="Content 内容" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Content</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body { padding: 32px; } .stack > * + * { margin-top: 24px; }</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const ds = window.KaiDesignSystemV4_3b9cf5;
+function Demo() {
+  return (
+    <div className="stack">
+      <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+        <ds.Tag>量化研究</ds.Tag>
+        <span className="kai-reading-date">2026.05.17</span>
+      </div>
+
+      <ds.VerseDivider>看得见底，但不浅薄</ds.VerseDivider>
+
+      <div className="kai-stat-stack">
+        <ds.StatCard label="当前项目" value="分歧提取器" sub="v0.3" delta="进行中 ↗" />
+        <ds.StatCard label="本周专注" value="14" sub="小时" delta="+2.3h ↗" />
+      </div>
+
+      <ds.ReadingCard tag="量化研究" date="2026.05.17"
+        title="霍尔木兹海峡封锁对美债市场的影响路径分析"
+        lead={<React.Fragment>当地缘风险溢价与通胀预期叠加，<br />市场的定价逻辑开始失语。</React.Fragment>}
+        readTime="约 12 分钟">
+        费雪效应的传导机制将在短端利率上产生非线性扰动。本文尝试从期限结构出发，还原市场在信息不对称条件下的定价逻辑……
+      </ds.ReadingCard>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        <ds.SideCard tone="dark"
+          title={<React.Fragment>「那片海，<br />是我见过最诚实的颜色」</React.Fragment>}
+          sub="垦丁 · 2025 夏" />
+        <ds.SideCard title="Kaggle · 时序预测基线" sub="XGBoost · 实验日志第 4 轮" />
+      </div>
+
+      <ds.Blockquote
+        text={<React.Fragment>用尽了力气<br />才走到这里<br /><br />原来终点<br />也是起点</React.Fragment>}
+        source="流年 · 王菲" />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

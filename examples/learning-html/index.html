@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>学习实验 · KAI Learning HTML</title>
+  <!-- 直接复用仓库的设计系统入口；请从仓库根目录提供 HTTP 服务。 -->
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="./learning.css">
+  <script src="./learning.js" defer></script>
+</head>
+<body>
+  <div class="kai-shell learning-shell">
+    <header class="kai-nav">
+      <span class="kai-wordmark">KAI<span> · </span>LEARNING</span>
+      <span class="lesson-meta">HTML / CSS · 01</span>
+    </header>
+
+    <main>
+      <div class="lesson-heading">
+        <p class="kai-eyebrow kai-eyebrow--dash">COMP3015 · 三份讲义，三个交互实验</p>
+        <h1>把网络知识，变成可以动手理解的页面</h1>
+        <p class="lesson-intro">每份讲义选一个核心概念。先观察，再操作，最后用一道小题检查理解。所有案例均直接复用 KAI Design System v4.3。</p>
+      </div>
+      <section class="lesson-card" aria-labelledby="cases-title">
+        <div class="section-heading"><span class="section-index">03 / 案例</span><h2 id="cases-title">从这里开始</h2></div>
+        <div class="case-list">
+          <a href="case-01.html"><span class="case-list-index">01 · DCN26-1c</span><strong>一条通道，几种说话方式？</strong><span>单工、半双工与全双工 →</span></a>
+          <a href="case-02.html"><span class="case-list-index">02 · DCN26-2c</span><strong>消息如何一层层被包装？</strong><span>HTTP / TCP / IP / 802.11 封装 →</span></a>
+          <a href="case-03.html"><span class="case-list-index">03 · DCN26-3c</span><strong>把 /26 分成三个办公室</strong><span>32 + 16 + 16 个地址 →</span></a>
+        </div>
+      </section>
+      <div class="lesson-heading lesson-heading--legacy">
+        <p class="kai-eyebrow kai-eyebrow--dash">原有模板 · 约 2 分钟</p>
+        <h1>认识 CSS 盒模型</h1>
+        <p class="lesson-intro">一个元素占据多少空间？先从内容、内边距和边框开始。试着调整下面的数值，观察它们各自的位置。</p>
+      </div>
+
+      <section class="lesson-card" aria-labelledby="explore-title">
+        <div class="section-heading">
+          <span class="section-index">01 / 探索</span>
+          <h2 id="explore-title">改变内边距</h2>
+        </div>
+        <p class="supporting-copy">内边距（padding）在内容和边框之间。拖动滑块，看看内容如何离边框越来越远。</p>
+        <div class="demo-stage" aria-label="盒模型示意图：外层是边框，中间浅色区域是内边距，内层白色区域是内容">
+          <div class="demo-border">
+            <div class="demo-padding" id="demo-padding">
+              <div class="demo-content">内容</div>
+            </div>
+          </div>
+        </div>
+        <div class="control-row">
+          <label for="padding-control">内边距 <output id="padding-value" for="padding-control">24px</output></label>
+          <input id="padding-control" type="range" min="8" max="48" step="4" value="24">
+        </div>
+      </section>
+
+      <section class="lesson-card practice-card" aria-labelledby="practice-title">
+        <div class="section-heading">
+          <span class="section-index">02 / 试一试</span>
+          <h2 id="practice-title">想一想</h2>
+        </div>
+        <p class="supporting-copy" id="question">如果只增加 padding，内容与边框之间的距离会怎样变化？</p>
+        <form id="practice-form" aria-describedby="question">
+          <fieldset class="answer-options">
+            <legend class="visually-hidden">请选择一个答案</legend>
+            <label class="answer-option"><input type="radio" name="answer" value="closer">变得更近</label>
+            <label class="answer-option"><input type="radio" name="answer" value="farther">变得更远</label>
+            <label class="answer-option"><input type="radio" name="answer" value="same">保持不变</label>
+          </fieldset>
+          <div class="answer-actions">
+            <button class="kai-btn kai-btn--primary" type="submit">检查答案</button>
+            <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="lesson-footer">KAI Design System v4.3 · 一次轻量的学习页面实验</footer>
+  </div>
+</body>
+</html>

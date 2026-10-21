@@ -1,0 +1,33 @@
+<!-- @dsCard group="Charts" viewport="700x250" name="图表语言" subtitle="数据线 2px · 网格中性 · mono 标数" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { padding: 20px 24px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); }
+</style>
+</head>
+<body>
+<div style="display:flex;flex-direction:column;gap:14px;">
+  <div style="display:flex;align-items:center;gap:16px;">
+    <svg width="180" height="24"><line x1="0" y1="12" x2="180" y2="12" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/></svg>
+    <span class="lbl">数据线 2px steel blue —— 全系统唯一比边框粗的线</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <svg width="180" height="24"><line x1="0" y1="12" x2="180" y2="12" stroke="var(--border-1)" stroke-width="1"/></svg>
+    <span class="lbl">网格 1px 中性 · 只有水平线，永远比数据淡</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <span style="font-family:var(--font-mono);font-size:var(--text-label);color:var(--text-2);">14.0&nbsp;&nbsp;9.9&nbsp;&nbsp;5.8</span>
+    <span class="lbl">数值标注 mono（Data 归 mono），不用图例</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <span style="font-family:var(--font-serif);font-style:italic;font-size:var(--text-body-sm);color:var(--text-2);">垦丁回来那天</span>
+    <span class="lbl">事件注释 = 1px 竖线 + serif 斜体（人的批注）</span>
+  </div>
+</div>
+<p class="lbl" style="margin-top:12px;">无阴影、无渐变填充；空态 mono「正在读取……」。</p>
+</body>
+</html>

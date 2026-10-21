@@ -1,0 +1,11 @@
+.DS_Store
+
+node_modules/
+.test-build/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+examples/learning-html/.Rhistory
+.npm-cache/

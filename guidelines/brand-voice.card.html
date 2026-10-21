@@ -1,0 +1,24 @@
+<!-- @dsCard group="Voice" viewport="700x280" name="语气" subtitle="不警告 · 不邀功 · 不归咎 · 事实例外" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>.kai-toast--danger { border-left-color: var(--danger); } .kai-toast--danger .kai-toast-dot { background: var(--danger); }</style>
+<style>
+  body { padding: 20px 24px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); }
+  .row { display: flex; gap: 4px; }
+</style>
+</head>
+<body>
+<div style="display:flex;flex-direction:column;gap:10px;">
+  <div style="display:flex;gap:12px;align-items:center;"><span class="lbl" style="width:44px;color:#a6685c;">✕</span><span style="font-size:var(--text-body-sm);color:var(--text-3);">错误：操作失败 / 成功！</span></div>
+  <div style="display:flex;gap:12px;align-items:center;"><span class="lbl" style="width:44px;color:var(--accent);">✓</span><span style="font-size:var(--text-body-sm);">有些地方值得再看一眼 / 已经保存了，不用担心。</span></div>
+  <div class="kai-toast kai-toast--info"><div class="kai-toast-dot"></div><div><div class="kai-toast-title">分析已完成</div><div class="kai-toast-body">找到 3 处分歧，可以看看了。</div></div></div>
+  <div class="kai-toast kai-toast--warm"><div class="kai-toast-dot"></div><div><div class="kai-toast-title">有些地方值得再看一眼</div><div class="kai-toast-body">目标价差异超过 15%，不一定是问题，但值得留意。</div></div></div>
+  <div class="kai-toast kai-toast--gentle"><div class="kai-toast-dot"></div><div><div class="kai-toast-title">已经保存了</div><div class="kai-toast-body">不用担心，你的进度都在。</div></div></div>
+  <div class="kai-toast kai-toast--danger"><div class="kai-toast-dot"></div><div><div class="kai-toast-title">没有删掉</div><div class="kai-toast-body">网络断了一下，内容还在，可以再试一次。</div></div></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!-- @dsCard group="Colors" viewport="700x220" name="文字色与对比度" subtitle="四级中性 · 全部达标" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { padding: 20px 24px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); }
+  .row { display: flex; gap: 4px; }
+</style>
+</head>
+<body>
+<div style="display:flex;flex-direction:column;gap:8px;">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:var(--text-body);color:var(--text-1);">text-1 #1F2124 — 正文</span><span class="lbl">16.1:1 ✓</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:var(--text-body);color:var(--text-2);">text-2 #5F646B — 次要、说明</span><span class="lbl">5.9:1 ✓</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:var(--text-label);color:var(--text-3);">text-3 #6B7077 — 占位、元信息</span><span class="lbl">≥4.5:1（page / surface）</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:var(--text-body);color:var(--text-4);">text-4 #B6B9BE — 仅装饰，禁写字</span><span class="lbl">2.3:1 · 装饰豁免</span></div>
+</div>
+<p class="lbl" style="margin-top:10px;">文字只有深浅之分，没有色相。彩色文字用于链接/选中、成功、警示或事实性失败。</p>
+</body>
+</html>

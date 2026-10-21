@@ -1,0 +1,27 @@
+<!-- @dsCard group="Brand" viewport="700x210" name="Motion" subtitle="入场一次 · hover 只变颜色 · 无位移" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { padding: 20px 24px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); }
+  /* 重播：按下时移除动画，松开时重新套用 = 重启。
+     纯 CSS，不依赖内联事件（preview 会剥离 on* 属性）。 */
+  .demo-row { display: flex; flex-direction: row-reverse; align-items: center; gap: 24px; }
+  .replay:active ~ .demo .kai-enter-1,
+  .replay:active ~ .demo .kai-enter-2 { animation: none; }
+</style>
+</head>
+<body>
+<div class="demo-row">
+  <button class="kai-btn kai-btn--secondary replay" type="button">重播</button>
+  <div class="demo" style="flex:1;background:var(--surface);border:1px solid var(--border-1);padding:16px 20px;">
+    <p class="kai-enter-1" style="font-size:var(--text-body);margin-bottom:6px;">入场透明度 / 500ms，不占用 transform。</p>
+    <p class="kai-enter-2" style="font-size:var(--text-label);color:var(--text-3);">交错 0.16s——最多到 0.24s，多了就是表演。</p>
+  </div>
+</div>
+<p class="lbl" style="margin-top:12px;">点「重播」重启入场。v3 的「主 CTA 上移 1px」特权被废除——安静的界面不表演，hover 只变底色/边框色。</p>
+</body>
+</html>

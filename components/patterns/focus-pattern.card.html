@@ -1,0 +1,35 @@
+<!-- @dsCard group="Patterns" viewport="700x400" name="Focus 一天一件事" subtitle="KAI 产品模式 · 非 Core" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Patterns</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { padding: 24px 32px; }
+  .cap { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); margin: 22px 0 10px; }
+  .cap:first-child { margin-top: 0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const ds = window.KaiDesignSystemV4_3b9cf5;
+
+function Demo() {
+  return (
+    <div>
+      <ds.FocusInput />
+      <p style={{ fontSize: 'var(--text-caption)', color: 'var(--text-3)', textAlign: 'center', marginTop: -20 }}>
+        Pattern：KAI 的产品模式，不是基础控件。别的产品请用 Input，或换成自己的问题。</p>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

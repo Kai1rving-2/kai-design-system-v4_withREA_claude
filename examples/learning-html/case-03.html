@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>把 /26 分成三个办公室 · KAI Learning</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="./cases.css">
+  <style>
+    .address-range { display: flex; justify-content: space-between; gap: var(--space-2); margin-top: var(--space-5); color: var(--text-2); font-family: var(--font-mono); font-size: var(--text-caption); }
+    .address-track { display: flex; min-height: 92px; margin-top: var(--space-2); border: 1px solid var(--border-2); background: var(--surface); }
+    .address-block { display: flex; flex-direction: column; justify-content: center; gap: var(--space-1); min-width: 0; padding: var(--space-2); border-right: 1px solid var(--border-2); color: var(--text-2); transition: background var(--duration-base); }
+    .address-block:last-child { border-right: none; }
+    .address-block[aria-current="step"] { background: var(--accent-wash); color: var(--accent-deep); }
+    .address-block.is-complete { background: var(--fresh-wash); color: var(--fresh-deep); }
+    .address-block strong { font-size: var(--text-body-sm); font-weight: var(--weight-medium); }
+    .address-block span { font-family: var(--font-mono); font-size: var(--text-caption); overflow-wrap: anywhere; }
+    .address-block:first-child { flex: 2; } .address-block:not(:first-child) { flex: 1; }
+    .allocation { margin-top: var(--space-6); padding-top: var(--space-5); border-top: 1px solid var(--border-1); }
+    .allocation-head { display: flex; justify-content: space-between; gap: var(--space-3); align-items: baseline; }
+    .allocation-head output { color: var(--text-3); font-family: var(--font-mono); font-size: var(--text-caption); }
+    .allocation-address { margin-top: var(--space-3); color: var(--accent-deep); font-family: var(--font-mono); font-size: var(--text-heading); overflow-wrap: anywhere; }
+    .allocation-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin-top: var(--space-5); }
+    .allocation-facts div { padding: var(--space-3); border: 1px solid var(--border-1); }
+    .allocation-facts dt { color: var(--text-3); font-size: var(--text-caption); }
+    .allocation-facts dd { margin-top: var(--space-1); font-family: var(--font-mono); font-size: var(--text-label); overflow-wrap: anywhere; }
+    .step-buttons { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-6); }
+    .step-buttons button { min-height: var(--tap-target); }
+    .step-buttons button[aria-pressed="true"] { color: var(--accent-deep); border-color: var(--accent); background: var(--accent-wash); }
+    @media (max-width: 480px) { .address-block { padding: var(--space-1); } .address-block strong { font-size: var(--text-caption); } .address-block span { font-size: var(--text-caption); } .allocation-facts { grid-template-columns: 1fr; } }
+  </style>
+  <script src="./case-03.js" defer></script>
+</head>
+<body>
+  <div class="kai-shell case-shell">
+    <header class="kai-nav"><a class="kai-wordmark" href="./">KAI<span> · </span>LEARNING</a><span class="case-meta">COMP3015 / 03</span></header>
+    <main>
+      <div class="case-header">
+        <p class="kai-eyebrow kai-eyebrow--dash">IP addressing · 子网划分</p>
+        <h1>把一个 /26，分给三个办公室</h1>
+        <p>你有一块 <span class="case-code">17.12.14.0/26</span>，共 64 个地址。三个办公室分别需要 32、16、16 个地址。按顺序分配，看看每一段的前缀与边界。</p>
+      </div>
+      <section class="case-panel" aria-labelledby="visual-title">
+        <span class="case-kicker">01 / 观察</span>
+        <h2 id="visual-title">64 个地址如何分配</h2>
+        <p class="case-note">整块从 .0 到 .63。下方区域宽度按地址数量成比例：32 + 16 + 16 = 64。</p>
+        <div class="case-stage">
+          <div class="address-range"><span>17.12.14.0</span><span>17.12.14.63</span></div>
+          <div class="address-track" aria-label="64 个地址分为三个连续区间，分别为 32、16、16 个地址">
+            <div class="address-block" data-block="0"><strong>办公室 A</strong><span>.0 – .31</span></div>
+            <div class="address-block" data-block="1"><strong>办公室 B</strong><span>.32 – .47</span></div>
+            <div class="address-block" data-block="2"><strong>办公室 C</strong><span>.48 – .63</span></div>
+          </div>
+        </div>
+        <div class="step-buttons" aria-label="选择办公室查看子网" id="step-buttons">
+          <button type="button" class="kai-btn kai-btn--secondary" data-step="0" aria-pressed="true">查看 A · 32 个</button>
+          <button type="button" class="kai-btn kai-btn--secondary" data-step="1" aria-pressed="false">查看 B · 16 个</button>
+          <button type="button" class="kai-btn kai-btn--secondary" data-step="2" aria-pressed="false">查看 C · 16 个</button>
+        </div>
+        <div class="allocation" aria-live="polite" aria-atomic="true">
+          <div class="allocation-head"><h3 id="allocation-title">办公室 A · 32 个地址</h3><output id="allocation-position">1 / 3</output></div>
+          <p id="allocation-address" class="allocation-address">17.12.14.0/27</p>
+          <p class="case-note" id="allocation-explain">32 = 2⁵，因此保留 5 位主机位，前缀是 32 − 5 = /27。</p>
+          <dl class="allocation-facts"><div><dt>子网掩码</dt><dd id="allocation-mask">255.255.255.224</dd></div><div><dt>广播地址</dt><dd id="allocation-broadcast">17.12.14.31</dd></div><div><dt>可用主机地址</dt><dd id="allocation-usable">17.12.14.1 – .30（30 个）</dd></div><div><dt>地址范围</dt><dd id="allocation-range">17.12.14.0 – .31</dd></div></dl>
+        </div>
+      </section>
+      <section class="case-panel" aria-labelledby="check-title">
+        <span class="case-kicker">02 / 检查理解</span>
+        <h2 id="check-title">哪一个是办公室 C 的子网？</h2>
+        <form id="subnet-quiz">
+          <fieldset class="case-options"><legend>办公室 C 从 .48 开始，需要 16 个连续地址。</legend>
+            <label class="case-choice"><input type="radio" name="subnet" value="a"><span class="case-code">17.12.14.48/27</span></label>
+            <label class="case-choice"><input type="radio" name="subnet" value="b"><span class="case-code">17.12.14.48/28</span></label>
+            <label class="case-choice"><input type="radio" name="subnet" value="c"><span class="case-code">17.12.14.32/28</span></label>
+          </fieldset>
+          <div class="case-actions"><button class="kai-btn kai-btn--primary" type="submit">检查答案</button></div>
+          <p class="case-feedback" id="quiz-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+      <p class="case-source">内容依据 COMP3015/2026 讲义《DCN26-3c.pdf》第 115–129、145 页；示例具体取自第 145 页。讲义的 32／16／16 指地址总数；每个子网的网络地址和广播地址不分配给普通主机。</p>
+    </main>
+    <nav class="case-navigation" aria-label="案例导航"><a href="./">← 实验首页</a><a href="case-01.html">01 · 通信方向</a><a href="case-02.html">02 · 协议封装</a></nav>
+  </div>
+</body>
+</html>

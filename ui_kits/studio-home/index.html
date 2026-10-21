@@ -1,0 +1,332 @@
+<!-- @dsCard group="UI Kits" viewport="900x860" name="工作台首页" subtitle="品牌页 · kai-moment 点亮" -->
+<!-- @startingPoint section="Screens" subtitle="工作台首页" viewport="900x860" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAI STUDIO · 工作台</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  .studio-nav-links { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; }
+  .studio-section { scroll-margin-top: 24px; }
+  .studio-section h1:focus-visible, .studio-section h2:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .studio-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 18px; }
+  .studio-section-head h2 { font-family: var(--font-ui); font-size: var(--text-heading); font-weight: var(--weight-medium); }
+  .studio-section-head span { font-size: var(--text-caption); color: var(--text-3); }
+  .studio-side-title { font-family: var(--font-ui); font-size: var(--text-label); font-weight: var(--weight-medium); color: var(--text-2); margin: 0 0 2px; }
+  .hero {
+    padding: 88px 0 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+  /* 品牌时刻：Editorial Display 64 / serif / 250。全站唯一。 */
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-editorial);
+    font-size: var(--text-editorial);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--text-1);
+    margin: 24px 0 32px;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-weight: var(--weight-editorial);
+    color: var(--accent);
+    display: block;
+  }
+  .hero-body {
+    font-family: var(--font-serif);
+    font-size: var(--text-body);
+    line-height: var(--leading-reading);
+    color: var(--text-2);
+    max-width: 300px;
+    border-left: 1px solid var(--border-1);
+    padding-left: 20px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+  .palette-row {
+    display: flex;
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .swatch { flex: 1; height: 40px; position: relative; transition: flex var(--duration-slow) var(--ease-default); }
+  .swatch:hover { flex: 3; }
+  .swatch-label {
+    position: absolute;
+    bottom: 6px; left: 9px;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    opacity: 0;
+    transition: opacity var(--duration-base);
+    white-space: nowrap;
+  }
+  .swatch:hover .swatch-label { opacity: 1; }
+  .content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 56px;
+  }
+  .side-stack { display: flex; flex-direction: column; gap: 10px; }
+  .studio-workspace { margin-bottom: 56px; }
+  .input-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+  .input-row .studio-search-field { flex: 1 1 260px; min-width: 0; }
+  .input-row .studio-category-field { flex: 0 1 150px; min-width: 120px; }
+  .input-row .kai-btn { min-height: var(--tap-target); }
+  .studio-search-note { margin-top: 9px; font-size: var(--text-caption); color: var(--text-3); }
+  .studio-search-status { margin-top: 26px; color: var(--text-2); font-size: var(--text-body-sm); }
+  .studio-search-status:empty { display: none; }
+  .studio-results { list-style: none; margin: 12px 0 0; border-top: 1px solid var(--border-1); }
+  .studio-results li { padding: 16px 0; border-bottom: 1px solid var(--border-1); }
+  .studio-results .kind { display: block; margin-bottom: 4px; font-size: var(--text-caption); color: var(--text-3); }
+  .studio-results p { margin-top: 5px; color: var(--text-2); font-size: var(--text-body-sm); }
+  .studio-about { margin: 10px 0 50px; padding: 28px 0 0; border-top: 1px solid var(--border-1); }
+  .studio-about p { max-width: 580px; color: var(--text-2); line-height: var(--leading-reading); }
+  .studio-demo-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 20px; margin-bottom: 56px; }
+  .quote-gap { margin: 56px 0; }
+  .divider-gap { margin: 36px 0 56px; }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 44px; padding: 56px 0 48px; }
+    .content-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: var(--text-title); }
+    .kai-nav { align-items: flex-start; flex-wrap: wrap; gap: 14px; }
+    .studio-nav-links { width: 100%; }
+    .studio-demo-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .input-row { flex-direction: column; align-items: stretch; }
+    .input-row .studio-search-field, .input-row .studio-category-field { flex: auto; width: 100%; }
+    .input-row .kai-btn { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body class="kai-moment">
+<div class="kai-shell">
+  <div id="root"></div>
+</div>
+
+<script type="text/babel">
+const ds = window.KaiDesignSystemV4_3b9cf5;
+const sections = ['overview', 'projects', 'notes', 'workspace', 'about'];
+const contentIndex = [
+  { title: '霍尔木兹海峡封锁对美债市场的影响路径分析', kind: '量化', summary: '期限结构、地缘风险溢价与通胀预期。', section: 'projects' },
+  { title: 'Kaggle · 时序预测基线', kind: '工程', summary: 'XGBoost 实验日志第 4 轮。', section: 'notes' },
+  { title: 'AVL Tree 旋转复杂度证明', kind: '工程', summary: '数据结构课程笔记。', section: 'notes' },
+  { title: '垦丁 · 2025 夏', kind: '笔记', summary: '那片海，是我见过最诚实的颜色。', section: 'notes' },
+];
+function sectionFromHash() {
+  const id = window.location.hash.slice(1);
+  return sections.includes(id) ? id : 'overview';
+}
+function filterContent(items, query, category) {
+  const words = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+  return items.filter(item => (category === '全部' || item.kind === category) &&
+    words.every(word => `${item.title} ${item.kind} ${item.summary}`.toLocaleLowerCase().includes(word)));
+}
+
+function Home() {
+  const [activeSection, setActiveSection] = React.useState(sectionFromHash);
+  const [query, setQuery] = React.useState('');
+  const [category, setCategory] = React.useState('全部');
+  const [applied, setApplied] = React.useState(null);
+  const sectionRefs = React.useRef({});
+  const searchRef = React.useRef(null);
+  const results = applied ? filterContent(contentIndex, applied.query, applied.category) : [];
+  const flowHref = window.location.pathname.endsWith('/preview.html') ? 'ui_kits/research-flow/index.html' : '../research-flow/index.html';
+
+  React.useEffect(() => {
+    const syncLocation = () => {
+      const id = sectionFromHash();
+      setActiveSection(id);
+      const target = sectionRefs.current[id];
+      target?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      target?.querySelector('h1, h2')?.focus({ preventScroll: true });
+    };
+    window.addEventListener('hashchange', syncLocation);
+    window.addEventListener('popstate', syncLocation);
+    if (window.location.hash) window.requestAnimationFrame(syncLocation);
+    return () => {
+      window.removeEventListener('hashchange', syncLocation);
+      window.removeEventListener('popstate', syncLocation);
+    };
+  }, []);
+
+  function navigateTo(id) {
+    const target = sectionRefs.current[id];
+    if (!target) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+    target.querySelector('h1, h2')?.focus({ preventScroll: true });
+    if (target.getRootNode() === document) window.history.pushState(null, '', `#${id}`);
+    setActiveSection(id);
+  }
+  function goTo(event, id) {
+    if (!sectionRefs.current[id]) return;
+    event.preventDefault();
+    navigateTo(id);
+  }
+  function submitSearch(event) {
+    event.preventDefault();
+    setApplied({ query: query.trim(), category });
+  }
+  function clearSearch() {
+    setQuery('');
+    setCategory('全部');
+    setApplied(null);
+    searchRef.current?.focus();
+  }
+
+  return (
+    <div>
+      <nav className="kai-nav" aria-label="工作台导航">
+        <a className="kai-wordmark" href="#overview" onClick={event => goTo(event, 'overview')}>KAI<span> · </span>STUDIO</a>
+        <ul className="studio-nav-links">
+          {[
+            ['overview', '索引'], ['projects', '项目'], ['notes', '笔记'], ['about', '关于'],
+          ].map(([id, label]) => <li key={id}><ds.NavLink href={`#${id}`} active={activeSection === id} aria-current="location" onClick={event => goTo(event, id)}>{label}</ds.NavLink></li>)}
+        </ul>
+      </nav>
+
+      <section id="overview" ref={node => { sectionRefs.current.overview = node; }} className="hero studio-section" aria-labelledby="home-title">
+        <div className="kai-enter-1">
+          <div className="kai-eyebrow kai-eyebrow--dash">设计系统 v4</div>
+          <h1 id="home-title" className="hero-title" tabIndex={-1}>
+            澄明之地
+            <em>笃定生长</em>
+          </h1>
+          <p className="hero-body">
+            安静为底，<br />
+            利落为骨。<br /><br />
+            这套系统不为装饰而存在——<br />
+            它退到背后，<br />
+            让你的思维和工作<br />
+            浮上来。
+          </p>
+          <div className="hero-actions kai-enter-3">
+            <a className="kai-btn kai-btn--primary" href="#workspace" onClick={event => goTo(event, 'workspace')}>进入工作台 <ds.Icon name="arrowDown" size={16} /></a>
+            <a className="kai-btn kai-btn--secondary" href="#projects" onClick={event => goTo(event, 'projects')}>浏览项目 <ds.Icon name="arrowRight" size={16} /></a>
+          </div>
+        </div>
+
+        <div className="kai-enter-2">
+          <div className="kai-stat-stack">
+            <ds.StatCard label="当前项目" value="分歧提取器" sub="v0.3" delta="进行中 ↗" />
+            <ds.StatCard label="本周专注" value="14" sub="小时" delta="+2.3h ↗" />
+            <ds.StatCard label="待处理" value="3" sub="项" delta="优先级 !" />
+          </div>
+        </div>
+      </section>
+
+      <div className="palette-row">
+        <div className="swatch" style={{ background: '#16222b' }}><span className="swatch-label" style={{ color: '#d6e0e7' }}>deep</span></div>
+        <div className="swatch" style={{ background: '#294b61' }}><span className="swatch-label" style={{ color: '#d6e0e7' }}>accent-deep</span></div>
+        <div className="swatch" style={{ background: '#315a75' }}><span className="swatch-label" style={{ color: '#ffffff' }}>accent</span></div>
+        <div className="swatch" style={{ background: '#4f806b' }}><span className="swatch-label" style={{ color: '#ffffff' }}>fresh</span></div>
+        <div className="swatch" style={{ background: '#e3ece7' }}><span className="swatch-label" style={{ color: '#3f6753' }}>fresh-wash</span></div>
+        <div className="swatch" style={{ background: '#f7f7f5' }}><span className="swatch-label" style={{ color: '#83878d' }}>page</span></div>
+        <div className="swatch" style={{ background: '#e6e8ea' }}><span className="swatch-label" style={{ color: '#5f646b' }}>border-1</span></div>
+        <div className="swatch" style={{ background: '#83878d' }}><span className="swatch-label" style={{ color: '#ffffff' }}>text-3</span></div>
+        <div className="swatch" style={{ background: '#1f2124' }}><span className="swatch-label" style={{ color: '#b6b9be' }}>text-1</span></div>
+      </div>
+
+      <div className="quote-gap">
+        <ds.Blockquote
+          text={<React.Fragment>用尽了力气<br />才走到这里<br /><br />原来终点<br />也是起点</React.Fragment>}
+          source="流年 · 王菲" />
+      </div>
+
+      <div className="divider-gap">
+        <ds.VerseDivider>看得见底，但不浅薄</ds.VerseDivider>
+      </div>
+
+      <section id="projects" ref={node => { sectionRefs.current.projects = node; }} className="studio-section" aria-labelledby="projects-title">
+        <div className="studio-section-head"><h2 id="projects-title" tabIndex={-1}>项目</h2><span>正在整理的内容</span></div>
+        <div className="content-grid">
+        <ds.ReadingCard
+          tag="量化研究"
+          date="2026.05.17"
+          title="霍尔木兹海峡封锁对美债市场的影响路径分析"
+          lead={<React.Fragment>当地缘风险溢价与通胀预期叠加，<br />市场的定价逻辑开始失语。</React.Fragment>}
+          readTime="约 12 分钟">
+          费雪效应的传导机制将在短端利率上产生非线性扰动。本文尝试从期限结构出发，还原市场在信息不对称条件下的定价逻辑……
+        </ds.ReadingCard>
+
+        <aside id="notes" ref={node => { sectionRefs.current.notes = node; }} className="side-stack studio-section" aria-labelledby="notes-title">
+          <h2 id="notes-title" className="studio-side-title" tabIndex={-1}>笔记与片段</h2>
+          <ds.SideCard
+            tone="dark"
+            title={<React.Fragment>「那片海，<br />是我见过最诚实的颜色」</React.Fragment>}
+            sub="垦丁 · 2025 夏" />
+          <ds.SideCard title="Kaggle · 时序预测基线" sub="XGBoost · 实验日志第 4 轮" />
+          <ds.SideCard title="AVL Tree 旋转复杂度证明" sub="数据结构 · 课程笔记" />
+        </aside>
+        </div>
+      </section>
+
+      <section id="workspace" ref={node => { sectionRefs.current.workspace = node; }} className="studio-workspace studio-section" aria-labelledby="workspace-title">
+        <div className="studio-section-head"><h2 id="workspace-title" tabIndex={-1}>工作台</h2><span>检索本页内容</span></div>
+        <form className="input-row" onSubmit={submitSearch} role="search">
+          <ds.Input ref={searchRef} className="studio-search-field" label="搜索" value={query} onChange={event => setQuery(event.target.value)} placeholder="输入关键词……" />
+          <ds.Select className="studio-category-field" label="分类" options={['全部', '量化', '工程', '笔记']} value={category} onChange={event => setCategory(event.target.value)} />
+          <ds.Button type="submit" aria-controls="studio-results" leadingIcon={<ds.Icon name="search" size={16} />}>检索</ds.Button>
+        </form>
+        <p className="studio-search-note">检索本页 4 条示例内容，不连接外部服务。</p>
+        <p className="studio-search-status" role="status" aria-live="polite">{applied ? (results.length ? `找到 ${results.length} 条内容` : '没有找到相符的内容') : ''}</p>
+        <div id="studio-results">
+          {applied ? (results.length ? <ul className="studio-results">{results.map(item => <li key={item.title}>
+            <span className="kind">{item.kind}</span>
+            <ds.TextLink href={`#${item.section}`} onClick={event => goTo(event, item.section)}>{item.title}</ds.TextLink>
+            <p>{item.summary}</p>
+          </li>)}</ul> : <ds.EmptyState title="没有找到相符的内容" body="可以缩短关键词，或清除分类后再试。" actionLabel="清除筛选" onAction={clearSearch} />) : null}
+        </div>
+      </section>
+
+      <div style={{ marginBottom: 36 }}>
+        <ds.VerseDivider>设计是一种照顾</ds.VerseDivider>
+      </div>
+
+      <div className="studio-demo-row">
+        <ds.EmptyState
+          title="这里还什么都没有"
+          body="还没关系，每件事都有它开始的时候。"
+          actionLabel="浏览示例项目"
+          onAction={() => navigateTo('projects')} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, justifyContent: 'center' }}>
+          <ds.Toast temp="info" title="分析已完成" body="找到 3 处分歧，可以看看了。" />
+          <ds.Toast temp="warm" title="有些地方值得再看一眼" body="目标价差异超过 15%，不一定是问题，但值得留意。" />
+          <ds.Toast temp="gentle" title="已经保存了" body="不用担心，你的进度都在。" />
+        </div>
+      </div>
+
+      <section id="about" ref={node => { sectionRefs.current.about = node; }} className="studio-about studio-section" aria-labelledby="about-title">
+        <div className="studio-section-head"><h2 id="about-title" tabIndex={-1}>关于 KAI</h2><span>设计是一种照顾</span></div>
+        <p>这是一套个人设计系统的交互样页。项目、笔记与检索使用本页示例内容，帮助检查组件在真实阅读顺序中是否清楚、可操作。也可以 <ds.TextLink href={flowHref}>查看失败恢复示例</ds.TextLink>。</p>
+      </section>
+
+      <footer className="kai-footer">
+        <span className="kai-footer-verse">澄明 · 笃定 · 斜光</span>
+        <div className="kai-footer-meta">
+          <span className="kai-footer-copy">KAI · STUDIO · 2026</span>
+          <div className="kai-footer-dot"></div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Home />);
+</script>
+</body>
+</html>

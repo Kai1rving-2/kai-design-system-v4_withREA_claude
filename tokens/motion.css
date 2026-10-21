@@ -1,0 +1,25 @@
+/* ═══════════════════════════════════════════════════════════
+   KAI v4 · Motion
+   安静的界面不需要表演。入场一次，hover 只变颜色。
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --duration-fast:  150ms; /* @kind other */
+  --duration-base:  180ms; /* @kind other */
+  --duration-slow:  300ms; /* @kind other */
+  --duration-enter: 500ms; /* @kind other */
+  --ease-default:   ease; /* @kind other */
+  --ease-out:       cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

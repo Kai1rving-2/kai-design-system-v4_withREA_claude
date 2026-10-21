@@ -1,0 +1,81 @@
+/* 实验页只负责学习内容的布局；颜色、文字与控件从 ../../styles.css 继承。 */
+.learning-shell { max-width: var(--max-w-content); }
+.lesson-meta, .section-index {
+  color: var(--text-3);
+  font-size: var(--text-caption);
+}
+.lesson-meta { font-family: var(--font-mono); }
+.lesson-heading { padding: var(--space-16) 0 var(--space-10); }
+.lesson-heading--legacy { border-top: 1px solid var(--border-1); margin-top: var(--space-12); }
+.case-list { display: grid; gap: var(--space-2); margin-top: var(--space-6); }
+.case-list a { display: grid; grid-template-columns: 132px 1fr auto; align-items: center; gap: var(--space-4); min-height: 76px; padding: var(--space-4); border: 1px solid var(--border-1); color: var(--text-2); text-decoration: none; }
+.case-list a:hover { background: var(--page); border-color: var(--border-2); }
+.case-list a:focus-visible { outline: 2px solid var(--accent); }
+.case-list-index { font-family: var(--font-mono); font-size: var(--text-caption); }
+.case-list strong { color: var(--text-1); font-size: var(--text-body); font-weight: var(--weight-medium); }
+.case-list a span:last-child { font-size: var(--text-body-sm); }
+@media (max-width: 760px) { .case-list a { grid-template-columns: 1fr; gap: var(--space-1); } }
+.lesson-heading h1 {
+  margin: var(--space-4) 0;
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+.lesson-intro { max-width: var(--max-w-text); color: var(--text-2); line-height: 1.75; }
+.lesson-card {
+  padding: var(--space-8);
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--border-1);
+  background: var(--surface);
+}
+.section-heading { display: flex; align-items: baseline; gap: var(--space-4); }
+.section-heading h2 { font-size: var(--text-heading); font-weight: var(--weight-medium); }
+.supporting-copy { margin: var(--space-3) 0 var(--space-6); color: var(--text-2); line-height: 1.75; }
+.demo-stage {
+  display: grid;
+  place-items: center;
+  min-height: 228px;
+  padding: var(--space-6);
+  background: var(--page);
+  border: 1px solid var(--border-1);
+}
+.demo-border { border: 1px solid var(--graphite); }
+.demo-padding { padding: var(--space-6); background: var(--accent-wash); }
+.demo-content {
+  display: grid;
+  place-items: center;
+  width: 144px;
+  min-height: 64px;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  font-size: var(--text-body-sm);
+}
+.control-row { display: grid; gap: var(--space-3); margin-top: var(--space-6); }
+.control-row label { display: flex; justify-content: space-between; font-size: var(--text-label); font-weight: var(--weight-medium); }
+.control-row output { font-family: var(--font-mono); font-weight: var(--weight-text); color: var(--text-2); }
+.control-row input { width: 100%; accent-color: var(--accent); cursor: pointer; }
+.answer-options { display: grid; gap: var(--space-2); border: 0; }
+.answer-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--tap-target);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-1);
+  cursor: pointer;
+}
+.answer-option:hover { background: var(--page); }
+.answer-option:has(input:checked) { border-color: var(--accent); background: var(--accent-wash); }
+.answer-option input { accent-color: var(--accent); }
+.answer-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-6); }
+.answer-actions .kai-btn { min-height: var(--tap-target); }
+.feedback { color: var(--text-2); font-size: var(--text-body-sm); }
+.feedback[data-result="correct"] { color: var(--fresh-deep); }
+.lesson-footer { margin-top: var(--space-12); padding: var(--space-5) 0 var(--space-10); border-top: 1px solid var(--border-1); color: var(--text-3); font-size: var(--text-caption); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 480px) {
+  .lesson-heading { padding: var(--space-10) 0 var(--space-8); }
+  .lesson-card { padding: var(--space-5); }
+  .demo-stage { padding: var(--space-3); }
+  .demo-content { width: 108px; }
+}

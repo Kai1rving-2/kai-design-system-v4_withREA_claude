@@ -1,0 +1,69 @@
+<!-- @dsCard group="Patterns" viewport="1000x680" name="REA × Claude · 交互借鉴" subtitle="过程可见 · 滚动有控制 · KAI 视觉" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KAI · REA × Claude interactions</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  body { padding: 32px; background: var(--page); }
+  .demo { max-width: 920px; margin: 0 auto; }
+  .demo-header { margin-bottom: 28px; }
+  .demo-title { font: var(--weight-medium) var(--text-heading)/var(--leading-heading) var(--font-ui); color: var(--text-1); margin: 0 0 8px; }
+  .demo-lead, .demo-note { color: var(--text-2); font: var(--weight-text) var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+  .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .demo-label { color: var(--text-3); font: var(--weight-medium) var(--text-label)/var(--leading-ui) var(--font-ui); margin: 0 0 12px; }
+  .demo-controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 0; }
+  .demo-entry { border-bottom: 1px solid var(--border-1); padding: 12px 0; color: var(--text-1); font: var(--weight-text) var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+  .demo-entry:first-child { padding-top: 0; }
+  .demo-entry time { display: block; color: var(--text-3); font: var(--weight-text) var(--text-caption)/var(--leading-ui) var(--font-ui); margin-bottom: 4px; }
+  @media (max-width: 720px) { body { padding: 20px; } .demo-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const ds = window.KaiDesignSystemV4_3b9cf5;
+const initial = ['先确认目标与上下文。', '把中间步骤整理成可检查的过程。', '让用户随时能回看之前的内容。', '新内容出现时，保留用户正在阅读的位置。', '只有用户已经在底部，才跟随最新内容。', '如果用户往上滚，提供回到最新内容的入口。'];
+function Demo() {
+  const [status, setStatus] = React.useState('running');
+  const [entries, setEntries] = React.useState(initial);
+  const [value, setValue] = React.useState('');
+  const [confirmed, setConfirmed] = React.useState('');
+  return <main className="demo">
+    <header className="demo-header"><h1 className="demo-title">过程清楚，控制权留给用户</h1><p className="demo-lead">借用 Claude UI 的交互思路，沿用 KAI 的颜色、字体、边框与语气。</p></header>
+    <div className="demo-grid">
+      <section><h2 className="demo-label">01 · 状态与恢复</h2>
+        <ds.ProcessDisclosure status={status} title="整理资料" onRetry={() => setStatus('running')} defaultOpen>
+          <div>这一步由产品执行；组件只表达当前状态。失败后保留说明和重试入口，详情可随时收起。</div>
+        </ds.ProcessDisclosure>
+        <div className="demo-controls">
+          <ds.Button variant="secondary" leadingIcon={<ds.Icon name="clock" size={16} />} onClick={() => setStatus('running')}>处理中</ds.Button>
+          <ds.Button variant="secondary" leadingIcon={<ds.Icon name="check" size={16} />} onClick={() => setStatus('success')}>已完成</ds.Button>
+          <ds.Button variant="secondary" leadingIcon={<ds.Icon name="alert" size={16} />} onClick={() => setStatus('error')}>失败</ds.Button>
+        </div>
+        <p className="demo-note">试着收起详情、切换状态和点击重试；组件不会假装执行真实任务。</p>
+      </section>
+      <section><h2 className="demo-label">02 · 新内容与滚动</h2>
+        <ds.StreamViewport updateKey={entries.length} height={258} label="示例动态记录">
+          {entries.map((entry, i) => <div className="demo-entry" key={i}><time>步骤 {String(i + 1).padStart(2, '0')}</time>{entry}</div>)}
+        </ds.StreamViewport>
+        <div className="demo-controls"><ds.Button variant="secondary" leadingIcon={<ds.Icon name="add" size={16} />} onClick={() => setEntries(items => [...items, `新增记录 ${items.length + 1}：继续把结果补充清楚。`])}>追加一条记录</ds.Button></div>
+        <p className="demo-note">先往上滚，再追加记录；视窗会停在原处，并显示「查看最新内容」。</p>
+      </section>
+    </div>
+    <section style={{marginTop: 28}}><h2 className="demo-label">03 · 输入中的 Enter</h2><p className="demo-note">使用中文输入法组合文字时，Enter 只完成选字，不触发确认。此处可直接试用。</p>
+      <div style={{maxWidth: 540}}><ds.FocusInput eyebrow="记录一件事" prompt="想清楚之后再确认。" value={value} onChange={e => setValue(e.target.value)} onConfirm={() => setConfirmed(value)} /></div>
+      {confirmed ? <p className="demo-note" role="status">已经确认：{confirmed}</p> : null}
+    </section>
+  </main>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

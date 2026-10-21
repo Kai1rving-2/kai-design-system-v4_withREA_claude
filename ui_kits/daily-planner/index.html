@@ -1,0 +1,180 @@
+<!-- @dsCard group="UI Kits" viewport="680x980" name="今日 Planner" subtitle="工具页 · 全安静，serif 只留一处" -->
+<!-- @startingPoint section="Screens" subtitle="今日 Planner" viewport="680x980" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日 · KAI PLANNER</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  .app { max-width: var(--max-w-app); margin: 0 auto; padding: 0 var(--page-padding) 72px; }
+  .vline-sep { display: flex; justify-content: center; margin: 8px 0 36px; }
+  .vline-sep::before { content: ''; display: block; width: 1px; height: 36px; background: var(--border-2); }
+  .add-task-row { display: flex; gap: 10px; align-items: center; margin: 16px 0 44px; }
+  .section-label {
+    font-family: var(--font-ui);
+    font-size: var(--text-caption);
+    color: var(--text-3);
+    margin: 28px 0 12px;
+  }
+  .empty-day {
+    background: var(--surface);
+    border: 1px solid var(--border-1);
+    border-radius: var(--radius-md);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .empty-day-title { font-size: var(--text-body); font-weight: var(--weight-medium); margin-bottom: 6px; }
+  .empty-day-body { font-size: var(--text-label); color: var(--text-3); line-height: var(--leading-ui); }
+  .date-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    color: var(--text-3);
+  }
+  .toast-area {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+    transition: opacity var(--duration-slow), transform var(--duration-slow);
+  }
+  .toast-area.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="kai-nav">
+    <div class="kai-wordmark">今日<span> · </span>PLANNER</div>
+    <div class="date-label"></div>
+  </header>
+
+  <div id="root"></div>
+
+  <div class="kai-footer" style="margin-top:8px;">
+    <span class="kai-footer-verse">一天，先照顾好一件事</span>
+    <div class="kai-footer-meta">
+      <span class="kai-footer-copy">KAI · PLANNER</span>
+      <div class="kai-footer-dot"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/babel">
+const ds = window.KaiDesignSystemV4_3b9cf5;
+const { useState } = React;
+
+const TODAY = (() => {
+  const d = new Date();
+  const weeks = ['日', '一', '二', '三', '四', '五', '六'];
+  return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0') + ' · 周' + weeks[d.getDay()];
+})();
+
+function Planner() {
+  const [focus, setFocus] = useState('');
+  const [items, setItems] = useState([
+    { text: '读完期限结构那章', done: true },
+    { text: '给妈妈打电话', done: false },
+    { text: '跑一次 XGBoost 基线', done: false },
+  ]);
+  const [draft, setDraft] = useState('');
+  const [notes, setNotes] = useState('');
+  const [toastMsg, setToastMsg] = useState('');
+
+  const done = items.filter((t) => t.done).length;
+  const pct = items.length ? done / items.length * 100 : 0;
+  const progressLabel = items.length === 0 ? '还没开始'
+    : done === 0 ? '万事开头难'
+    : done === items.length ? '那天做完了。'
+    : '完成了 ' + done + ' / ' + items.length;
+
+  const showToast = (msg) => {
+    setToastMsg(msg);
+    clearTimeout(showToast.t);
+    showToast.t = setTimeout(() => setToastMsg(''), 2200);
+  };
+
+  const addTask = () => {
+    if (!draft.trim()) return;
+    setItems([...items, { text: draft.trim(), done: false }]);
+    setDraft('');
+  };
+
+  const toggle = (i) => {
+    const next = items.map((t, j) => (j === i ? { ...t, done: !t.done } : t));
+    setItems(next);
+    if (next[i].done) {
+      const doneCount = next.filter((t) => t.done).length;
+      if (doneCount === next.length) setTimeout(() => showToast('今天做完了，很好。'), 200);
+      else showToast('已经保存了，不用担心。');
+    }
+  };
+
+  return (
+    <div>
+      <ds.FocusInput value={focus} onChange={(e) => setFocus(e.target.value)} onConfirm={() => showToast('记下了。')} />
+
+      <div className="vline-sep"></div>
+
+      <ds.VerseDivider>其余的事，慢慢来</ds.VerseDivider>
+
+      <div className="section-label">待办</div>
+
+      {items.length === 0 ? (
+        <div className="empty-day">
+          <div className="empty-day-title">今天还是空的</div>
+          <div className="empty-day-body">这也是一种自由。想到什么，就写下来。</div>
+        </div>
+      ) : (
+        <div className="kai-task-list">
+          {items.map((t, i) => (
+            <ds.TaskItem key={i} text={t.text} done={t.done}
+              onToggle={() => toggle(i)}
+              onDelete={() => setItems(items.filter((_, j) => j !== i))} />
+          ))}
+        </div>
+      )}
+
+      <div className="add-task-row">
+        <input
+          className="kai-input"
+          style={{ flex: 1 }}
+          placeholder="添加一件事……"
+          maxLength="80"
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => { if (e.key === 'Enter') addTask(); }}
+        />
+        <ds.Button variant="secondary" style={{ whiteSpace: 'nowrap' }} onClick={addTask}>添加</ds.Button>
+      </div>
+
+      <ds.NotesArea value={notes} onChange={(e) => setNotes(e.target.value)} style={{ marginBottom: 44 }} />
+
+      <div style={{ borderTop: '1px solid var(--border-1)', paddingTop: 20 }}>
+        <ds.ProgressLine value={pct} label={progressLabel} />
+      </div>
+
+      {toastMsg ? (
+        <div className="toast-area show">
+          <ds.ToastDark>{toastMsg}</ds.ToastDark>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+document.querySelector('.date-label').textContent = TODAY;
+ReactDOM.createRoot(document.getElementById('root')).render(<Planner />);
+</script>
+</body>
+</html>

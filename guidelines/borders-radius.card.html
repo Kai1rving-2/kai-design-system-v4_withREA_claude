@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x330" name="边界与圆角" subtitle="小框 8 · 按钮 10 · 容器 12" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { padding: 20px 24px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); line-height: var(--leading-ui); }
+  .samples { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; margin-top:18px; }
+  .sample { border:1px solid var(--border-1); background:var(--surface); padding:14px; min-height:104px; display:flex; flex-direction:column; justify-content:space-between; gap:10px; }
+  .sample-label { font-family:var(--font-ui); font-size:var(--text-label); font-weight:var(--weight-medium); color:var(--text-1); }
+</style>
+</head>
+<body>
+<p class="lbl">完整的框采用一致的圆角层级。半径随区域变大，边框仍是 1px；焦点与状态颜色维持 KAI 语义。</p>
+<div class="samples">
+  <div class="sample" style="border-radius:var(--radius-sm);"><span class="sample-label">小框 · 8px</span><span class="lbl">输入框、标签、紧凑工具面板</span></div>
+  <div class="sample" style="border-radius:var(--radius-control);"><span class="sample-label">操作 · 10px</span><button class="kai-btn kai-btn--primary" type="button">保存草稿</button></div>
+  <div class="sample" style="border-radius:var(--radius-md);"><span class="sample-label">容器 · 12px</span><span class="lbl">Surface、阅读卡片、过程状态</span></div>
+</div>
+<p class="lbl" style="margin-top:18px;border-left:1px solid var(--border-2);padding-left:12px;">下划线输入、表格分隔线和引言线仍是直线：它们负责组织内容，不是一个「框」。层级继续靠底色与边框，不加装饰性阴影。</p>
+</body>
+</html>

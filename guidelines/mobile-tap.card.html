@@ -1,0 +1,23 @@
+<!-- @dsCard group="Mobile" viewport="700x220" name="触控与输入" subtitle="≥44px · 16px 防缩放 · 常显删除" -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { padding: 20px 24px; }
+  .lbl { font-family: var(--font-ui); font-size: var(--text-caption); color: var(--text-3); }
+</style>
+</head>
+<body>
+<div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+  <button class="kai-btn kai-btn--primary" style="min-height:44px;display:inline-flex;align-items:center;">添加</button>
+  <div style="display:flex;align-items:center;gap:12px;border:1px solid var(--border-1);background:var(--surface);padding:16px;min-height:44px;">
+    <div style="width:22px;height:22px;border:1px solid var(--border-2);border-radius:50%;"></div>
+    <span style="font-size:var(--text-body-sm);">任务行 ≥44px · 勾选圈 22px</span>
+  </div>
+  <input class="kai-input" style="min-height:44px;flex:1;min-width:160px;" placeholder="输入 ≥16px，聚焦不缩放" />
+</div>
+<p class="lbl" style="margin-top:12px;">pointer: coarse 下自动生效；触屏没有 hover，「× 删除」常显。断点：760px 塌单栏、480px 收紧内边距。</p>
+</body>
+</html>

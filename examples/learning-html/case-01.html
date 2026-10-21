@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="通过可切换的方向图，理解单工、半双工与全双工通信。">
+  <title>信息可以往哪边走？· KAI Learning</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="./cases.css">
+  <style>
+    /* 本案例专属：通信方向图。其余颜色、字体、间距复用 KAI token。 */
+    .duplex-topline { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; }
+    .duplex-index { color: var(--text-3); font-family: var(--font-mono); font-size: var(--text-caption); }
+    .duplex-topline a, .duplex-footer a { color: var(--text-2); text-decoration: none; border-radius: var(--radius-sm); padding: 5px 7px; }
+    .duplex-topline a:hover, .duplex-footer a:hover { color: var(--text-1); background: var(--sunken); }
+    .duplex-index { margin-bottom: var(--space-3); }
+    .duplex-lead { margin: var(--space-3) 0 var(--space-6); color: var(--text-2); line-height: 1.75; }
+    .duplex-modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); margin-bottom: var(--space-6); }
+    .duplex-mode { min-height: var(--tap-target); padding: var(--space-3); border: 1px solid var(--border-2); border-radius: var(--radius-sm); background: var(--surface); color: var(--text-2); text-align: left; font: inherit; font-weight: var(--weight-medium); cursor: pointer; }
+    .duplex-mode:hover { background: var(--sunken); color: var(--text-1); }
+    .duplex-mode[aria-pressed="true"] { border-color: var(--graphite); background: var(--graphite); color: var(--text-inverse); }
+    .duplex-mode small { display: block; margin-top: var(--space-1); font-size: var(--text-caption); font-weight: var(--weight-text); opacity: .8; }
+    .duplex-stage { margin-top: 0; }
+    .duplex-stage-head { display: flex; justify-content: space-between; gap: var(--space-3); align-items: baseline; margin-bottom: var(--space-6); }
+    .duplex-stage-head strong { font-size: var(--text-body); font-weight: var(--weight-medium); }
+    .duplex-stage-head span { color: var(--text-3); font-size: var(--text-caption); }
+    .duplex-diagram { display: grid; grid-template-columns: minmax(52px, 1fr) minmax(115px, 2.7fr) minmax(52px, 1fr); gap: var(--space-3); align-items: center; max-width: 560px; margin: 0 auto; }
+    .duplex-endpoint { display: grid; place-items: center; min-height: 86px; border: 1px solid var(--border-2); background: var(--surface); font-size: var(--text-heading); font-weight: var(--weight-medium); }
+    .duplex-paths { display: grid; gap: var(--space-2); }
+    .duplex-lane { display: flex; align-items: center; justify-content: center; min-height: 36px; border-bottom: 1px solid var(--border-2); color: var(--text-4); font-family: var(--font-ui); font-size: 26px; line-height: 1; }
+    .duplex-lane.is-active { border-color: var(--graphite); color: var(--graphite); }
+    .duplex-lane[hidden] { display: none; }
+    .duplex-caption { min-height: 24px; margin-top: var(--space-5); color: var(--text-2); font-size: var(--text-body-sm); text-align: center; }
+    .duplex-note { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); padding-top: var(--space-6); }
+    .duplex-note h3 { margin-bottom: var(--space-2); color: var(--text-3); font-size: var(--text-caption); font-weight: var(--weight-medium); }
+    .duplex-note p { line-height: 1.75; }
+    .duplex-reverse { margin-top: var(--space-4); }
+    .duplex-reverse[hidden] { display: none; }
+    .duplex-reverse .kai-btn { min-height: var(--tap-target); }
+    .duplex-fieldset { display: grid; gap: var(--space-2); border: 0; }
+    .duplex-fieldset legend { margin-bottom: var(--space-4); font-weight: var(--weight-medium); }
+    .duplex-footer nav { display: flex; flex-wrap: wrap; gap: var(--space-4); font-size: var(--text-body-sm); }
+    @media (max-width: 580px) {
+      .duplex-modes { grid-template-columns: 1fr; }
+      .duplex-mode { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); }
+      .duplex-mode small { margin-top: 0; }
+      .duplex-diagram { gap: var(--space-2); }
+      .duplex-note { grid-template-columns: 1fr; gap: var(--space-4); }
+    }
+  </style>
+  <script src="./case-01.js" defer></script>
+</head>
+<body>
+  <div class="kai-shell case-shell">
+    <header class="kai-nav duplex-topline">
+      <a class="kai-wordmark" href="./index.html">KAI<span> · </span>LEARNING</a>
+      <span class="case-meta">通信基础 / 01</span>
+      <a href="./index.html">返回目录 ↗</a>
+    </header>
+
+    <main>
+      <div class="case-header">
+        <p class="kai-eyebrow kai-eyebrow--dash">一节小课 · 三种通信方向</p>
+        <h1>信息可以往哪边走？</h1>
+        <p>同样是 A 和 B 之间通信，能否回话、能否同时说话，决定了三种不同的工作模式。点选下方模式，看箭头怎么变。</p>
+      </div>
+
+      <section class="case-panel" aria-labelledby="explore-title">
+        <p class="duplex-index">01 / 观察</p>
+        <h2 id="explore-title">切换通信模式</h2>
+        <p class="duplex-lead">先看箭头的方向，再看两条方向能否同时工作。</p>
+        <div class="duplex-modes" role="group" aria-label="选择通信模式">
+          <button class="duplex-mode" type="button" data-mode="simplex" aria-pressed="true">单工 <small>Simplex · 只往一边</small></button>
+          <button class="duplex-mode" type="button" data-mode="half" aria-pressed="false">半双工 <small>Half-duplex · 轮流说话</small></button>
+          <button class="duplex-mode" type="button" data-mode="full" aria-pressed="false">全双工 <small>Full-duplex · 同时双向</small></button>
+        </div>
+
+        <div class="case-stage duplex-stage">
+          <div class="duplex-stage-head"><strong id="mode-title">单工 · 单向通信</strong><span id="mode-counter">01 / 03</span></div>
+          <div id="direction-diagram" class="duplex-diagram" role="img" aria-label="单工：只有 A 向 B 发送信息，B 不能通过同一通信方式向 A 回传。">
+            <div class="duplex-endpoint" aria-hidden="true">A</div>
+            <div class="duplex-paths" aria-hidden="true">
+              <div id="lane-forward" class="duplex-lane is-active">⟶</div>
+              <div id="lane-backward" class="duplex-lane" hidden>⟵</div>
+            </div>
+            <div class="duplex-endpoint" aria-hidden="true">B</div>
+          </div>
+          <p id="diagram-caption" class="duplex-caption">A → B；只有一个传送方向。</p>
+          <div id="reverse-control" class="duplex-reverse" hidden><button id="reverse-button" class="kai-btn kai-btn--secondary" type="button">换到 B → A</button></div>
+        </div>
+        <div class="duplex-note" aria-live="polite" aria-atomic="true">
+          <div><h3>简要解释</h3><p id="mode-description">单工只能朝一个方向传送信息；接收方不能通过同一通信方式回传。</p></div>
+          <div><h3>观察要点</h3><p id="mode-observation">广播是典型例子：广播站发送，收音机接收；收音机不能沿这条广播链路回话。</p></div>
+        </div>
+      </section>
+
+      <section class="case-panel" aria-labelledby="practice-title">
+        <p class="duplex-index">02 / 检查理解</p>
+        <h2 id="practice-title">两个人能同时说话吗？</h2>
+        <p class="duplex-lead">视频通话时，双方可以在同一时刻说话并听见对方。这属于哪种通信模式？</p>
+        <form id="practice-form" novalidate>
+          <fieldset class="case-options duplex-fieldset">
+            <legend>选择一个答案</legend>
+            <label class="case-choice"><input type="radio" name="answer" value="simplex">单工：只能一个方向传送</label>
+            <label class="case-choice"><input type="radio" name="answer" value="half">半双工：双向但必须轮流</label>
+            <label class="case-choice"><input type="radio" name="answer" value="full">全双工：同时双向传送</label>
+          </fieldset>
+          <div class="case-actions"><button class="kai-btn kai-btn--primary" type="submit">检查答案</button><p id="practice-feedback" class="case-feedback duplex-feedback" role="status" aria-live="polite" aria-atomic="true"></p></div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="case-navigation duplex-footer">
+      <span class="case-source">依据 COMP3015 · DCN26-1c，第 9–11 页</span>
+      <nav aria-label="其他学习页面"><a href="./index.html">学习首页</a><a href="./case-02.html">下一案例 →</a><a href="./case-03.html">案例 03</a></nav>
+    </footer>
+  </div>
+</body>
+</html>
