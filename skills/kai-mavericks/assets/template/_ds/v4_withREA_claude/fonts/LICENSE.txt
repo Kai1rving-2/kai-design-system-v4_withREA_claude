@@ -1,0 +1,18 @@
+KAI Design System — bundled font notices
+========================================
+
+The bundled Source Serif 4 and DM Mono WOFF2 Latin / Latin Extended subsets
+remain under the SIL Open Font License 1.1, not the project's code license.
+The full license is in OFL.txt in this directory.
+
+Source Serif 4: Copyright 2014 - 2023 Adobe (http://www.adobe.com/),
+with Reserved Font Name 'Source'. All Rights Reserved. Source is a trademark
+of Adobe in the United States and/or other countries.
+Original license: https://github.com/adobe-fonts/source-serif/blob/release/LICENSE.md
+
+DM Mono: Copyright 2020 The DM Mono Project Authors
+(https://www.github.com/googlefonts/dm-mono).
+Original license: https://github.com/google/fonts/blob/main/ofl/dmmono/OFL.txt
+
+These files are subsets of the original fonts. No CJK fonts are bundled;
+Chinese text uses system fallback fonts.

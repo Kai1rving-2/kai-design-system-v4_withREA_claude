@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════════════════════
+   KAI v4 · Spacing / Border / Radius
+   与 v3 一致的骨架：4px 倍数、1px 边框、圆角 ≤ 4。
+   「笃定」的新解释：所有东西都像它本来就应该在那里——
+   骨架不变，变的是不再用装饰证明结构。
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── 间距（4px 基数）── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ── 版心 ── */
+  --max-w-content: 900px;
+  --max-w-app:     680px;
+  --max-w-text:    640px;
+  --page-padding:  20px;
+
+  /* ── 移动端 ── */
+  --tap-target: 44px;   /* @kind spacing */
+
+  /* ── 边框 ── */
+  --border-width: 1px;   /* 容器默认；状态/定位标记可采用显式例外 */
+
+  /* ── 圆角：小框 8、按钮 10、容器 12；线性内容不强加圆角 ── */
+  --radius-none: 0;    /* @kind radius */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-control: 10px; /* @kind radius */
+  --radius-icon-button: 50%; /* @kind radius */
+}
+
+/* Layer roles; hosts own positioning and modality. */
+:root {
+  --layer-canvas: 40;
+  --layer-panel: 50;
+  --layer-feedback: 60;
+}
+@media (max-width: 480px) {
+  :root { --page-padding: 16px; }
+}

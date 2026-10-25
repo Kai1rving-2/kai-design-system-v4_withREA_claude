@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KAI · 原生 HTML 控件</title>
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="controls.css">
+  <script src="controls.js" defer></script>
+</head>
+<body>
+  <main class="kai-shell demo-shell">
+    <header class="demo-header">
+      <p class="kai-caption">KAI / NATIVE HTML</p>
+      <h1 class="kai-title">把状态说清楚。</h1>
+      <p class="kai-body">筛选、表单和失败恢复的最小起点。此页只有本地合成操作，无需服务或账号。</p>
+    </header>
+    <section class="kai-surface demo-section" aria-labelledby="filters-heading">
+      <h2 class="kai-heading" id="filters-heading">选择查看范围</h2>
+      <div class="kai-actions" id="scope-controls" role="group" aria-label="示例数据范围">
+        <button class="kai-filter-chip" type="button" aria-pressed="true" data-scope="全部">全部 <span class="kai-filter-chip-count">8</span></button>
+        <button class="kai-filter-chip" type="button" aria-pressed="false" data-scope="已完成">已完成 <span class="kai-filter-chip-count">5</span></button>
+        <button class="kai-filter-chip" type="button" aria-pressed="false" data-scope="待处理">待处理 <span class="kai-filter-chip-count">3</span></button>
+      </div>
+      <p class="kai-caption" id="scope-summary" role="status">查看全部示例数据。</p>
+      <div class="kai-segmented" id="range-controls" role="group" aria-label="合成数据时间范围">
+        <button class="kai-segmented-option" type="button" aria-pressed="true" data-range="小时">按小时</button>
+        <button class="kai-segmented-option" type="button" aria-pressed="false" data-range="天">按天</button>
+      </div>
+      <p class="kai-caption" id="range-summary">当前范围：按小时。</p>
+    </section>
+    <section class="kai-surface demo-section" aria-labelledby="action-heading">
+      <h2 class="kai-heading" id="action-heading">提交与恢复</h2>
+      <form id="sample-form" class="kai-stack">
+        <div class="kai-field">
+          <label class="kai-field-label" for="sample-name">示例名称</label>
+          <input class="kai-input" id="sample-name" name="sampleName" required maxlength="80" value="本地合成结果" aria-describedby="sample-help">
+          <p class="kai-field-help" id="sample-help">名称仅用于本页显示，刷新页面后重置。</p>
+        </div>
+        <label class="demo-checkbox"><input type="checkbox" id="simulate-failure">模拟一次读取失败</label>
+        <div class="kai-actions">
+          <button class="kai-btn kai-btn--primary kai-async-action" id="sample-submit" type="submit" aria-busy="false">生成合成结果</button>
+          <span class="kai-status-badge" data-tone="neutral" id="action-badge">准备就绪</span>
+        </div>
+        <p class="kai-async-feedback" id="action-feedback" data-state="idle" role="status" aria-live="polite">提交后会等待片刻。失败提示会保留，直到你重试。</p>
+      </form>
+      <div class="demo-result">
+        <p id="sample-result">还没有生成结果。</p>
+        <p class="kai-data-freshness" id="freshness" data-state="stale">本地合成来源 · 尚未生成</p>
+        <button class="kai-btn kai-btn--secondary" id="mark-stale" type="button" disabled>将结果标记为过期</button>
+      </div>
+    </section>
+    <footer class="demo-footer kai-caption">
+      <a class="kai-textlink" href="../../docs/html-consumption.md">HTML 消费合同 <span aria-hidden="true">→</span></a>
+      <a class="kai-textlink" href="../../preview.html">回到组件预览 <span aria-hidden="true">→</span></a>
+    </footer>
+  </main>
+</body>
+</html>

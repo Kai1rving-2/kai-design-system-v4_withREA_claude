@@ -3,8 +3,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { esbuild, requireTool } from './toolchain.mjs';
+import { rebuildGallery } from './gallery.mjs';
+import { buildThemes } from './themes.mjs';
+import { packageMavericks } from './package-mavericks.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
+const packageInfo = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
 const read = p => fs.readFileSync(path.join(root, p), 'utf8');
 const write = (p, value) => fs.writeFileSync(path.join(root, p), value);
 const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]);
@@ -31,7 +35,8 @@ const components = sources.map(sourcePath => {
     nativeProps: Boolean(iface?.heritageClauses?.length),
     props: iface?.members.filter(ts.isPropertySignature).map(p => ({ name: p.name.getText(source).replaceAll("'", ''), type: p.type?.getText(source), optional: Boolean(p.questionToken) })) || [] };
 });
-const sourceHashes = Object.fromEntries(sources.map(p => [p, createHash('sha256').update(read(p)).digest('hex')]));
+const hashedSources = walk(path.join(root, 'components')).filter(p => /\.(?:jsx|js)$/.test(p)).sort().map(p => path.relative(root, p));
+const sourceHashes = Object.fromEntries(hashedSources.map(p => [p, createHash('sha256').update(read(p)).digest('hex')]));
 const namespace = 'KaiDesignSystemV4_3b9cf5';
 // Keep authored cards/starting points discoverable by the single-file gallery builder.
 // Both directives live in source HTML; never edit the generated manifest by hand.
@@ -50,7 +55,7 @@ const startingPoints = cardFiles.flatMap(p => {
   const data = directive(read(p), 'startingPoint');
   return data ? [{ kind: 'screen', name: path.basename(path.dirname(p)), path: p, previewPath: p, ...data }] : [];
 });
-const meta = { format: 3, version: '4.3.0-rea.6', namespace, components, sourceHashes, inlinedExternals: [], unexposedExports: [], cards, startingPoints };
+const meta = { format: 3, version: packageInfo.version, namespace, components, sourceHashes, inlinedExternals: [], unexposedExports: [], cards, startingPoints };
 write('_ds_manifest.json', JSON.stringify(meta,null,2)+'\n');
 const result = await esbuild().build({ entryPoints: [path.join(root, 'index.js')], bundle: true, write: false, format: 'iife', globalName: namespace, platform: 'browser',
   plugins: [{ name: 'react-global', setup(build) {
@@ -68,18 +73,10 @@ write('_adherence.oxlintrc.json', JSON.stringify({ rules: { 'no-restricted-synta
   message: 'Button variant must be primary, secondary or text.'
 }] } },null,2)+'\n');
 
-// The existing gallery embeds a compiled React bundle and a common CSS pool.
-// Refresh these from the same source without changing the gallery's layout/content.
-let preview = read('preview.html');
+// Rebuild authored cards, local styles and scripts from source. Keep the shell/runtime.
+buildThemes(root);
+let preview = await rebuildGallery({ root: root.replace(/\/$/, ''), preview: read('preview.html'), cards, startingPoints, esbuild: esbuild() });
 preview = preview.replace(/<script>\s*\/\* @ds-bundle:[\s\S]*?<\/script>/, () => `<script>${bundle.replaceAll('</script', '<\\/script')}</script>`);
-preview = preview.replace(/(<script type="application\/json" id="ds-data">)([\s\S]*?)(<\/script>)/, (_, start, json, end) => {
-  const data = JSON.parse(json);
-  const key = Object.keys(data.css).find(k => data.css[k].includes('--page:') && data.css[k].includes('.kai-btn'));
-  if (!key) throw new Error('Cannot find shared gallery CSS');
-  const files = ['tokens/colors.css','tokens/typography.css','tokens/spacing.css','tokens/motion.css','tokens/base.css','components/components.css'];
-  // Gallery cards use shadow roots. Apply the public root/body rules to their hosts.
-  data.css[key] = files.map(read).join('\n').replaceAll(':root', ':host').replace(/html, body/g, ':host').replace(/\bbody\s*\{/g, '.__dsroot {');
-  return start + JSON.stringify(data).replaceAll('</script', '<\\/script') + end;
-});
-write('preview.html', preview);
-console.log(`Built ${components.length} components, typed entry, tokens, manifest and preview.`);
+write('preview.html', preview.replace(/^[ \t]+$/gm, ''));
+packageMavericks(root);
+console.log(`Built ${components.length} components, ${cards.length} cards, typed entry, tokens, manifest and preview.`);

@@ -1,8 +1,12 @@
 {
   "name": "kai-design-system-v4_withrea_claude",
-  "version": "4.3.0-rea.6",
+  "version": "4.3.0-rea.7",
   "private": true,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kai1rving-2/kai-design-system-v4_withREA_claude.git"
+  },
   "type": "module",
   "exports": {
     ".": {
@@ -27,7 +31,9 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node --test tests/*.test.cjs",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "theme:check": "node scripts/themes.mjs --check",
+    "skill:check": "node scripts/package-mavericks.mjs --check"
   },
   "peerDependencies": {
     "react": ">=18 <20"

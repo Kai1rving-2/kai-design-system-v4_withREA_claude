@@ -1,0 +1,895 @@
+/* ═══════════════════════════════════════════════════════════
+   KAI v4 · Component classes — Quiet Base + Signature
+   判断标准不再是「它应该怎么更 KAI」，而是「这里真的需要
+   KAI 出声吗」。答案默认是否：sans、中性、句子大小写。
+   Serif / blue / 深色块 / 诗句只出现在被点名的地方。
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Nav ── */
+.kai-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 20px;
+  border-bottom: 1px solid var(--border-1);
+}
+.kai-wordmark {
+  font-family: var(--font-ui);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-body);
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+  text-decoration: none;
+}
+.kai-wordmark span { color: var(--accent); }
+.kai-nav-links { display: flex; gap: 24px; list-style: none; }
+.kai-nav-links a {
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color var(--duration-base) var(--ease-default);
+}
+.kai-nav-links a:hover { color: var(--text-1); }
+
+/* ── Eyebrow：caption 级引导词，安静 ── */
+.kai-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+}
+.kai-eyebrow--dash::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--text-4);
+}
+
+/* ── Buttons：Sans、句子大小写。按钮是人在做的事 ── */
+.kai-btn {
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  padding: 9px 18px;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition:
+    background var(--duration-base) var(--ease-default),
+    border-color var(--duration-base) var(--ease-default),
+    color var(--duration-base) var(--ease-default);
+}
+.kai-btn--primary {
+  background: var(--action-bg, var(--graphite));   /* KAI 没有 Primary Color：主行动是近黑 */
+  color: var(--action-fg, var(--text-inverse));
+  border: 1px solid var(--action-bg, var(--graphite));
+}
+.kai-btn--primary:hover { background: var(--action-hover-bg, var(--graphite-deep)); color: var(--action-hover-fg, var(--text-inverse)); border-color: var(--action-hover-bg, var(--graphite-deep)); }
+.kai-btn--secondary {
+  background: var(--surface);
+  color: var(--text-1);
+  border: 1px solid var(--border-2);
+}
+.kai-btn--secondary:hover { background: var(--sunken); }
+.kai-btn--primary:active { background: var(--action-pressed-bg, var(--graphite-deep)); color: var(--action-pressed-fg, var(--text-inverse)); border-color: var(--action-pressed-bg, var(--graphite-deep)); }
+.kai-btn--secondary:active { background: var(--border-1); }
+.kai-btn:focus-visible { outline: 2px solid var(--focus-ring, var(--accent)); outline-offset: 2px; }
+.kai-btn.is-pending { opacity: 0.55; pointer-events: none; cursor: progress; }
+.kai-btn:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
+
+/* ── Field ── */
+.kai-field { display: flex; flex-direction: column; gap: 6px; }
+.kai-field-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  color: var(--text-2);
+}
+.kai-input, .kai-select {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+  color: var(--text-1);
+  outline: none;
+  transition: border-color var(--duration-base) var(--ease-default);
+  appearance: none;
+  -webkit-appearance: none;
+}
+.kai-input:focus, .kai-select:focus { border-color: var(--accent); }
+.kai-input::placeholder { color: var(--text-3); }
+/* Field 契约：帮助文字、错误、成功（v4.2） */
+.kai-field-help {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  color: var(--text-3);
+  line-height: var(--leading-ui);
+}
+.kai-field-error {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  color: var(--danger);
+  line-height: var(--leading-ui);
+}
+.kai-input--error, .kai-select--error { border-color: var(--danger); }
+.kai-input--error:focus, .kai-select--error:focus { border-color: var(--danger); }
+.kai-input--success, .kai-select--success { border-color: var(--fresh); }
+.kai-input--success:focus, .kai-select--success:focus { border-color: var(--fresh); }
+
+/* ── FocusInput：签名时刻。一天只问一次的问题，值得用衬线 ── */
+.kai-focus-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-2);
+  border-radius: 0;
+  padding: 10px 0;
+  font-family: var(--font-serif);
+  font-weight: var(--weight-display);
+  font-size: var(--text-title);
+  color: var(--text-1);
+  text-align: center;
+  outline: none;
+  transition: border-color var(--duration-base) var(--ease-default);
+}
+.kai-focus-input::placeholder { color: var(--text-4); font-style: italic; }
+.kai-focus-input:focus { border-bottom-color: var(--accent); }
+
+/* ── NotesArea ── */
+.kai-notes {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--border-1);
+  border-radius: 0;
+  padding: 16px 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  color: var(--text-2);
+  outline: none;
+  resize: none;
+  line-height: var(--leading-ui);
+  min-height: 72px;
+  transition: border-color var(--duration-base) var(--ease-default);
+}
+.kai-notes::placeholder { color: var(--text-3); }
+.kai-notes:focus { border-top-color: var(--accent); }
+
+/* ── Links：文字靠字重与颜色识别，反馈靠浅底；不使用下划线。 ──
+   link 是 blue 的少量领地；导航常态是中性，选中才落蓝。 */
+.kai-textlink {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: var(--weight-medium);
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: 3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: color var(--duration-base) var(--ease-default), background-color var(--duration-base) var(--ease-default);
+}
+.kai-textlink:hover { color: var(--accent-deep); background-color: var(--accent-wash); }
+.kai-textlink:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.kai-textlink-mark { margin-left: .18em; font-size: .82em; vertical-align: .08em; }
+.kai-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+.kai-navlink {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-base) var(--ease-default), background-color var(--duration-base) var(--ease-default);
+}
+.kai-navlink:hover { color: var(--text-1); background-color: var(--sunken); }
+.kai-navlink.is-active {
+  color: var(--accent);
+  background-color: var(--accent-wash);
+  font-weight: var(--weight-medium);
+}
+.kai-navlink.is-active:hover { color: var(--accent-deep); background-color: var(--accent-wash); }
+.kai-navlink:focus-visible, .kai-backlink:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.kai-backlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  color: var(--text-2);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-default), gap var(--duration-base) var(--ease-default);
+}
+.kai-backlink::before { content: '←'; }
+.kai-backlink:hover { color: var(--text-1); }
+
+/* ── Tag：元数据是中性的。激活态才允许 accent ── */
+.kai-tag {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--text-2);
+  background: var(--sunken);
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+}
+.kai-tag--active { background: var(--accent-wash); color: var(--accent-deep); }
+
+/* ── StatCard：数字安静下来，等宽 sans ── */
+.kai-stat-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-1);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.kai-stat-card {
+  background: var(--surface);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background var(--duration-base) var(--ease-default);
+}
+.kai-stat-card:hover { background: var(--page); }
+.kai-stat-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+.kai-stat-value {
+  font-family: var(--font-ui);
+  font-size: var(--text-title);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-1);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+}
+.kai-stat-value sub {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-text);
+  color: var(--text-3);
+  margin-left: 4px;
+  vertical-align: baseline;
+}
+.kai-stat-delta {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── ReadingCard：编辑性内容是 serif 的合法领地 ── */
+.kai-reading-card {
+  background: var(--surface);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  transition: border-color var(--duration-base) var(--ease-default);
+}
+.kai-reading-card:hover { border-color: var(--border-2); }
+.kai-reading-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.kai-reading-date {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-3);
+}
+.kai-reading-title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-text);
+  font-size: var(--text-heading);
+  line-height: var(--leading-heading);
+  margin-bottom: 12px;
+}
+.kai-reading-lead {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--weight-text);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-1);
+  margin-bottom: 10px;
+}
+.kai-reading-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-ui);
+  color: var(--text-2);
+}
+.kai-reading-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.kai-reading-footer.is-meta-only { justify-content: flex-end; }
+.kai-read-more {
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap var(--duration-base) var(--ease-default);
+}
+.kai-read-more::after { content: '→'; }
+.kai-read-more:hover { color: var(--accent-deep); }
+.kai-read-time {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-3);
+}
+
+/* ── SideCard ── */
+.kai-side-card {
+  background: var(--surface);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: border-color var(--duration-base) var(--ease-default);
+}
+.kai-side-card:hover { border-color: var(--border-2); }
+.kai-side-title {
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-ui);
+  margin-bottom: 6px;
+}
+.kai-side-sub {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  color: var(--text-3);
+}
+/* 深色引言卡：签名。引言是 serif 的正当场景 */
+.kai-side-card--dark {
+  background: var(--deep);
+  border-color: var(--deep);
+  padding: 24px 20px;
+}
+.kai-side-card--dark .kai-side-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--weight-display);
+  font-size: 18px;
+  line-height: 1.75;
+  color: #d6e0e7;
+}
+.kai-side-card--dark .kai-side-sub { color: rgba(214, 224, 231, 0.6); }
+
+/* ── VerseDivider：签名。留白里的一句话 ── */
+.kai-verse-divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+}
+.kai-verse-line { height: 1px; background: var(--border-1); }
+.kai-verse-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--weight-text);
+  font-size: var(--text-body-sm);
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+/* ── Blockquote：签名。停下来思考的地方 ── */
+.kai-blockquote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.kai-blockquote::before,
+.kai-blockquote::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: var(--border-2);
+}
+.kai-blockquote::before { margin-bottom: 32px; }
+.kai-blockquote::after { margin-top: 32px; }
+.kai-blockquote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--weight-display);
+  font-size: var(--text-title);
+  line-height: 1.85;
+  color: var(--text-1);
+  max-width: 400px;
+}
+.kai-blockquote-source {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--text-3);
+  margin-top: 16px;
+}
+
+/* ── Toast：Sans。告知不是抒情 ── */
+.kai-toast {
+  background: var(--surface);
+  border: 1px solid var(--border-1);
+  border-left: 2px solid var(--border-2);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.kai-toast-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+.kai-toast--info   { border-left-color: var(--accent); }
+.kai-toast--info .kai-toast-dot   { background: var(--accent); }
+.kai-toast--warm   { border-left-color: var(--warm-600); }
+.kai-toast--warm .kai-toast-dot   { background: var(--warm-600); }
+.kai-toast--gentle { border-left-color: var(--text-3); }
+.kai-toast--gentle .kai-toast-dot { background: var(--text-3); }
+.kai-toast--danger { border-left-color: var(--danger); }
+.kai-toast--danger .kai-toast-dot { background: var(--danger); }
+.kai-toast-action {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--accent);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 6px;
+  cursor: pointer;
+}
+.kai-toast-action:hover { color: var(--accent-deep); }
+.kai-toast-dismiss {
+  margin-left: auto;
+  align-self: flex-start;
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  color: var(--text-3);
+  background: none;
+  border: none;
+  padding: 0 2px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.kai-toast-dismiss:hover { color: var(--text-1); }
+.kai-toast-title {
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-1);
+  margin-bottom: 2px;
+  line-height: var(--leading-ui);
+}
+.kai-toast-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  color: var(--text-2);
+  line-height: var(--leading-ui);
+}
+.kai-toast--dark {
+  background: var(--deep);
+  border: 1px solid var(--deep);
+  border-left: 1px solid var(--deep);
+  padding: 11px 18px;
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  color: #e6ecf0;
+  display: block;
+  border-radius: var(--radius-md);
+}
+
+/* ── EmptyState：陪伴，但不抒情 ── */
+.kai-empty {
+  background: var(--surface);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-md);
+  padding: 44px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.kai-empty-icon {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--text-3);
+  font-size: var(--text-body);
+}
+.kai-empty-title {
+  font-family: var(--font-ui);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+.kai-empty-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  color: var(--text-3);
+  line-height: var(--leading-ui);
+  max-width: 220px;
+}
+.kai-empty-action {
+  margin-top: 20px;
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap var(--duration-base) var(--ease-default);
+}
+.kai-empty-action::after { content: '→'; }
+.kai-empty-action:hover { color: var(--accent-deep); }
+
+/* ── TaskItem ── */
+.kai-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border-1);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.kai-task {
+  background: var(--surface);
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background var(--duration-fast) var(--ease-default);
+}
+.kai-task:hover { background: var(--page); }
+.kai-task--done { background: var(--fresh-wash); }
+.kai-task-check {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--border-2);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+}
+.kai-task--done .kai-task-check {
+  border-color: var(--fresh);
+  background: var(--fresh);
+}
+.kai-task--done .kai-task-check::after {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 4px;
+  border-left: 1.5px solid #ffffff;
+  border-bottom: 1.5px solid #ffffff;
+  transform: rotate(-45deg) translateY(-1px);
+}
+.kai-task-text {
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  color: var(--text-1);
+  flex: 1;
+  line-height: var(--leading-ui);
+  cursor: pointer;
+  transition: color var(--duration-fast);
+}
+.kai-task--done .kai-task-text {
+  color: var(--text-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-4);
+}
+.kai-task-delete {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  color: var(--text-4);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--duration-fast), color var(--duration-fast);
+  padding: 4px 8px;
+  border: none;
+  background: none;
+}
+.kai-task:hover .kai-task-delete { opacity: 1; }
+.kai-task-delete:hover { color: var(--text-2); }
+
+/* ── ProgressLine ── */
+.kai-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.kai-progress-text {
+  font-family: var(--font-ui);
+  font-size: var(--text-label);
+  color: var(--text-3);
+}
+.kai-progress-track {
+  flex: 1;
+  max-width: 160px;
+  height: 1px;
+  background: var(--border-1);
+  position: relative;
+}
+.kai-progress-fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 1px;
+  background: var(--fresh);
+  transition: width 400ms var(--ease-default);
+}
+
+/* ── Footer ── */
+.kai-footer {
+  border-top: 1px solid var(--border-1);
+  padding: 20px 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.kai-footer-verse {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--weight-text);
+  font-size: var(--text-body-sm);
+  color: var(--text-3);
+}
+.kai-footer-meta { display: flex; align-items: center; gap: 12px; }
+.kai-footer-copy {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  color: var(--text-3);
+}
+.kai-footer-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   移动端：触控目标 ≥ 44px、输入 16px、hover 操作常显
+   ═══════════════════════════════════════════════════════════ */
+@media (pointer: coarse) {
+  .kai-btn {
+    min-height: var(--tap-target);
+    padding: 12px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .kai-input, .kai-select {
+    min-height: var(--tap-target);
+    padding: 12px 14px;
+  }
+  .kai-task { padding: 16px; min-height: var(--tap-target); }
+  .kai-task-check { width: 22px; height: 22px; }
+  .kai-task-delete { opacity: 1; }
+  .kai-toast { padding: 14px 18px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   图表语言：数据线 2px 仍是唯一比边框粗的线；
+   轴与网格全部中性；数字用 mono（Data 角色）；
+   事件注释保留 serif 斜体——人的批注。
+   ═══════════════════════════════════════════════════════════ */
+.kai-table { width: 100%; border-collapse: collapse; }
+.kai-table th {
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--text-3);
+  text-align: left;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--border-2);
+}
+.kai-table td {
+  font-family: var(--font-ui);
+  font-size: var(--text-body-sm);
+  color: var(--text-1);
+  padding: 12px;
+  border-bottom: 1px solid var(--border-1);
+}
+.kai-table tbody tr:hover td { background: var(--page); }
+.kai-table td.kai-table-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--text-2);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* v4.3: reusable roles and interaction contracts. */
+.kai-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); line-height: var(--leading-ui); text-decoration: none; }
+.kai-btn--text { background: transparent; border: 1px solid transparent; color: var(--accent); padding-inline: 10px; }
+.kai-btn--text:hover:not(:disabled) { color: var(--accent-deep); background-color: var(--accent-wash); }
+.kai-icon { display: inline-block; flex: none; vertical-align: -0.2em; }
+.kai-btn-icon { display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.kai-btn.kai-icon-button { width: var(--tap-target); min-width: var(--tap-target); height: var(--tap-target); min-height: var(--tap-target); padding: var(--space-2); flex-shrink: 0; border-radius: var(--radius-icon-button); }
+.kai-icon-button { position: relative; }
+.kai-icon-button::after {
+  content: attr(aria-label);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 180px;
+  padding: 6px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--graphite);
+  color: var(--text-inverse);
+  font: var(--weight-text) var(--text-caption)/var(--leading-ui) var(--font-ui);
+  text-align: center;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: var(--layer-feedback);
+  transition: opacity var(--duration-fast) var(--ease-default), visibility var(--duration-fast) var(--ease-default);
+}
+.kai-icon-button[data-tooltip-align="start"]::after { left: 0; transform: none; }
+.kai-icon-button[data-tooltip-align="end"]::after { left: auto; right: 0; transform: none; }
+@media (hover: hover) and (pointer: fine) {
+  .kai-icon-button:hover:not(:disabled)::after { opacity: 1; visibility: visible; }
+}
+.kai-icon-button:focus-visible::after { opacity: 1; visibility: visible; }
+.kai-input:focus-visible, .kai-select:focus-visible, .kai-notes:focus-visible, .kai-focus-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.kai-input:disabled, .kai-select:disabled, .kai-notes:disabled { opacity: .55; cursor: not-allowed; background: var(--sunken); }
+.kai-input, .kai-select { min-width: 0; width: 100%; line-height: var(--leading-ui); }
+.kai-select { appearance: auto; -webkit-appearance: auto; }
+.kai-textarea { resize: vertical; min-height: 80px; }
+.kai-checkbox { display: flex; flex: 1; align-items: center; gap: var(--space-3); min-height: var(--tap-target); cursor: pointer; font-size: var(--text-body-sm); }
+.kai-checkbox input { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--fresh); }
+.kai-checkbox:has(input:disabled) { cursor: default; }
+.kai-task--done .kai-checkbox span { color: var(--text-3); text-decoration: line-through; }
+.kai-task:focus-within .kai-task-delete, .kai-task-delete:focus-visible { opacity: 1; }
+.kai-task-delete { color: var(--text-2); min-height: var(--tap-target); }
+.kai-surface { border-radius: var(--radius-md); padding: var(--surface-padding, var(--space-5)); }
+.kai-surface--outline { background: var(--surface); border: var(--border-width) solid var(--border-2); }
+.kai-surface--soft { background: var(--sunken); border: var(--border-width) solid transparent; }
+.kai-surface--plain { background: transparent; border: 0; border-radius: 0; padding: 0; }
+.kai-stack { display: flex; flex-direction: column; align-items: stretch; gap: var(--stack-gap, var(--space-3)); }
+.kai-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.kai-title { font-family: var(--font-ui); font-size: var(--text-title); font-weight: var(--weight-medium); line-height: var(--leading-tight); color: var(--text-1); overflow-wrap: anywhere; }
+.kai-heading { font-family: var(--font-ui); font-size: var(--text-heading); font-weight: var(--weight-medium); line-height: var(--leading-heading); color: var(--text-1); }
+.kai-body { font-family: var(--font-ui); font-size: var(--text-body); font-weight: var(--weight-text); line-height: var(--leading-ui); }
+.kai-caption { font-family: var(--font-ui); font-size: var(--text-caption); line-height: var(--leading-ui); color: var(--text-3); }
+.kai-feedback { font-family: var(--font-ui); font-size: var(--text-body-sm); line-height: var(--leading-ui); color: var(--text-2); }
+.kai-feedback--error { color: var(--danger); }
+.kai-feedback--warning { color: var(--warm-600); }
+.kai-feedback--success { color: var(--fresh-deep); }
+.kai-toast--success { border-left-color: var(--fresh); }
+.kai-toast--success .kai-toast-dot { background: var(--fresh); }
+.kai-toast--error { border-left-color: var(--danger); }
+.kai-toast--error .kai-toast-dot { background: var(--danger); }
+.kai-toast--warning { border-left-color: var(--warm-600); }
+.kai-toast--warning .kai-toast-dot { background: var(--warm-600); }
+.kai-empty-action { background: none; border: none; cursor: pointer; }
+.kai-footer { flex-wrap: wrap; gap: var(--space-3); }
+@media (pointer: coarse) {
+  .kai-input, .kai-select, .kai-notes { font-size: 16px; }
+  .kai-toast-dismiss, .kai-toast-action, .kai-task-delete, .kai-empty-action { min-width: var(--tap-target); min-height: var(--tap-target); }
+  .kai-navlink, .kai-backlink { display: inline-flex; align-items: center; min-height: var(--tap-target); }
+}
+
+.kai-toast-host { position: fixed; inset-inline: 0; bottom: calc(var(--space-6) + env(safe-area-inset-bottom)); z-index: var(--layer-feedback); display: grid; justify-items: center; gap: var(--space-2); padding-inline: var(--space-4); pointer-events: none; max-height: 50dvh; overflow-y: auto; }
+.kai-toast-host > * { pointer-events: auto; width: min(420px, 100%); }
+
+.kai-btn.is-pending:disabled { opacity: .55; }
+/* Narrow viewports also get readable controls when a touch device has a mouse attached. */
+@media (max-width: 760px), (any-pointer: coarse) {
+  .kai-input, .kai-select, .kai-notes { font-size: 16px; }
+}
+
+/* Optional process and live-content patterns: KAI semantics, no borrowed palette. */
+.kai-process { border: 1px solid var(--border-2); border-radius: var(--radius-md); background: var(--surface); padding: var(--space-4); color: var(--text-1); }
+.kai-process-head { display: flex; align-items: flex-start; gap: var(--space-3); }
+.kai-process-mark { flex: 0 0 18px; margin-top: 2px; color: var(--text-3); }
+.kai-process[data-status="running"] .kai-process-mark { color: var(--accent); }
+.kai-process[data-status="success"] .kai-process-mark { color: var(--fresh-deep); }
+.kai-process[data-status="error"] .kai-process-mark { color: var(--danger); }
+.kai-process-main { flex: 1; min-width: 0; }
+.kai-process-title { font: var(--weight-medium) var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+.kai-process-message { font: var(--weight-text) var(--text-body-sm)/var(--leading-ui) var(--font-ui); color: var(--text-2); margin-top: var(--space-1); }
+.kai-process[data-status="error"] .kai-process-message { color: var(--danger); }
+.kai-process-toggle, .kai-stream-jump { appearance: none; border: 1px solid var(--border-2); border-radius: var(--radius-control); background: var(--surface); color: var(--text-2); font: var(--weight-medium) var(--text-label)/var(--leading-ui) var(--font-ui); cursor: pointer; min-height: 32px; padding: var(--space-1) var(--space-2); display: inline-flex; align-items: center; gap: var(--space-1); }
+.kai-process-toggle:hover, .kai-stream-jump:hover { background: var(--page); border-color: var(--border-2); color: var(--text-1); }
+.kai-process-toggle:active, .kai-stream-jump:active { background: var(--sunken); }
+.kai-process-toggle:focus-visible, .kai-stream-jump:focus-visible, .kai-stream-viewport:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.kai-process-toggle:disabled, .kai-stream-jump:disabled { opacity: .4; cursor: not-allowed; }
+.kai-process-detail { border-top: 1px solid var(--border-1); margin-top: var(--space-3); padding-top: var(--space-3); color: var(--text-2); font: var(--weight-text) var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+.kai-process-detail[hidden] { display: none; }
+.kai-process-actions { margin-top: var(--space-3); }
+.kai-stream { position: relative; }
+.kai-stream-viewport { overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--border-2); border-radius: var(--radius-md); background: var(--surface); }
+.kai-stream-content { padding: var(--space-4); }
+.kai-stream-viewport[data-fade-top="true"] { -webkit-mask-image: linear-gradient(to bottom, transparent, black 18px, black); mask-image: linear-gradient(to bottom, transparent, black 18px, black); }
+.kai-stream-viewport[data-fade-bottom="true"] { -webkit-mask-image: linear-gradient(to bottom, black, black calc(100% - 18px), transparent); mask-image: linear-gradient(to bottom, black, black calc(100% - 18px), transparent); }
+.kai-stream-viewport[data-fade-top="true"][data-fade-bottom="true"] { -webkit-mask-image: linear-gradient(to bottom, transparent, black 18px, black calc(100% - 18px), transparent); mask-image: linear-gradient(to bottom, transparent, black 18px, black calc(100% - 18px), transparent); }
+.kai-stream-jump { position: absolute; right: var(--space-3); bottom: var(--space-3); }
+@media (pointer: coarse) { .kai-process-toggle, .kai-stream-jump { min-height: var(--tap-target); } }
+
+/* Shared HTML/React action recipes. Use real buttons and aria-pressed for state. */
+.kai-filter-chip, .kai-segmented-option {
+  appearance: none; display: inline-flex; justify-content: center; align-items: center;
+  gap: var(--space-2); min-height: 36px; padding: 7px 12px;
+  border: 1px solid var(--border-2); border-radius: var(--radius-control);
+  background: var(--surface); color: var(--text-2);
+  font: var(--weight-medium) var(--text-label)/var(--leading-ui) var(--font-ui);
+  cursor: pointer; transition: background var(--duration-base), color var(--duration-base), border-color var(--duration-base);
+}
+.kai-filter-chip { border-radius: 999px; }
+.kai-filter-chip:hover:not(:disabled):not([aria-pressed="true"]):not(.is-selected), .kai-segmented-option:hover:not(:disabled):not([aria-pressed="true"]) { background: var(--sunken); }
+.kai-filter-chip:active:not(:disabled):not([aria-pressed="true"]):not(.is-selected), .kai-segmented-option:active:not(:disabled):not([aria-pressed="true"]) { background: var(--border-1); }
+.kai-filter-chip[aria-pressed="true"], .kai-filter-chip.is-selected,
+.kai-segmented-option[aria-pressed="true"] { background: var(--accent-wash); color: var(--accent); border-color: var(--accent); }
+.kai-filter-chip:focus-visible, .kai-segmented-option:focus-visible { outline: 2px solid var(--focus-ring, var(--accent)); outline-offset: 2px; }
+.kai-filter-chip:disabled, .kai-segmented-option:disabled { opacity: .4; cursor: default; }
+.kai-filter-chip-count { font: var(--weight-text) var(--text-caption)/var(--leading-ui) var(--font-mono); font-variant-numeric: tabular-nums; }
+.kai-segmented { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 3px; padding: 3px; border: 1px solid var(--border-1); border-radius: var(--radius-control); background: var(--surface); }
+.kai-segmented-option { border-color: transparent; background: transparent; }
+.kai-segmented-option[aria-pressed="true"] { border-color: transparent; }
+.kai-status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: var(--radius-sm); background: var(--sunken); color: var(--text-2); font: var(--weight-medium) var(--text-caption)/var(--leading-ui) var(--font-ui); }
+.kai-status-badge--info, .kai-status-badge[data-tone="info"] { color: var(--accent-deep); background: var(--accent-wash); }
+.kai-status-badge--success, .kai-status-badge[data-tone="success"] { color: var(--fresh-deep); background: var(--fresh-wash); }
+.kai-status-badge--warning, .kai-status-badge[data-tone="warning"] { color: var(--warm-600); }
+.kai-status-badge--error, .kai-status-badge[data-tone="error"] { color: var(--danger); }
+.kai-async-action[aria-busy="true"] { cursor: progress; }
+.kai-async-feedback { color: var(--text-2); font: var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+.kai-async-feedback[data-state="error"] { color: var(--danger); }
+.kai-async-feedback[data-state="success"] { color: var(--fresh-deep); }
+.kai-data-freshness { display: inline-flex; align-items: center; gap: 6px; color: var(--text-2); font: var(--text-caption)/var(--leading-ui) var(--font-ui); }
+.kai-data-freshness::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); flex: none; }
+.kai-data-freshness[data-state="live"]::before { background: var(--fresh); }
+.kai-data-freshness[data-state="stale"]::before { background: var(--warm-600); }
+.kai-data-freshness[data-state="error"]::before { background: var(--danger); }
+@media (pointer: coarse) { .kai-filter-chip, .kai-segmented-option { min-height: var(--tap-target); } }

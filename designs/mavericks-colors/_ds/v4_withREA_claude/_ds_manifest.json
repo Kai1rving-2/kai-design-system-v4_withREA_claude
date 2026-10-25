@@ -1,0 +1,1441 @@
+{
+  "format": 3,
+  "version": "4.3.0-rea.7",
+  "namespace": "KaiDesignSystemV4_3b9cf5",
+  "components": [
+    {
+      "name": "BarChart",
+      "sourcePath": "components/charts/BarChart.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "data",
+          "type": "Array<{ label: string; value: number }>",
+          "optional": false
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "density",
+          "type": "'compact' | 'regular'",
+          "optional": true
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "summary",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "formatValue",
+          "type": "(value: number) => string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "DataTable",
+      "sourcePath": "components/charts/DataTable.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "columns",
+          "type": "string[]",
+          "optional": false
+        },
+        {
+          "name": "rows",
+          "type": "Array<Array<React.ReactNode>>",
+          "optional": false
+        },
+        {
+          "name": "align",
+          "type": "Record<string, 'left' | 'right'>",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "LineChart",
+      "sourcePath": "components/charts/LineChart.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "data",
+          "type": "Array<number | { value: number } | null>",
+          "optional": false
+        },
+        {
+          "name": "labels",
+          "type": "string[]",
+          "optional": true
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "density",
+          "type": "'compact' | 'regular'",
+          "optional": true
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "summary",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "formatValue",
+          "type": "(value: number) => string",
+          "optional": true
+        },
+        {
+          "name": "area",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "annotation",
+          "type": "{ index: number; label: string }",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "SparkLine",
+      "sourcePath": "components/charts/SparkLine.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "data",
+          "type": "Array<number | null>",
+          "optional": false
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Blockquote",
+      "sourcePath": "components/content/Blockquote.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "text",
+          "type": "React.ReactNode",
+          "optional": false
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "ReadingCard",
+      "sourcePath": "components/content/ReadingCard.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "tag",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "optional": false
+        },
+        {
+          "name": "lead",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "readLabel",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "readHref",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "readTime",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "SideCard",
+      "sourcePath": "components/content/SideCard.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "tone",
+          "type": "'default' | 'dark'",
+          "optional": true
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "optional": false
+        },
+        {
+          "name": "sub",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "StatCard",
+      "sourcePath": "components/content/StatCard.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "value",
+          "type": "React.ReactNode",
+          "optional": false
+        },
+        {
+          "name": "sub",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "delta",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Tag",
+      "sourcePath": "components/content/Tag.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "VerseDivider",
+      "sourcePath": "components/content/VerseDivider.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "BackLink",
+      "sourcePath": "components/core/BackLink.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "onClick",
+          "type": "(e: React.MouseEvent<HTMLAnchorElement>) => void",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "sourcePath": "components/core/Button.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "pending",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "variant",
+          "type": "'primary' | 'secondary' | 'text'",
+          "optional": true
+        },
+        {
+          "name": "leadingIcon",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "trailingIcon",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "FilterChip",
+      "sourcePath": "components/core/FilterChip.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "Icon",
+      "sourcePath": "components/core/Icon.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "name",
+          "type": "IconName",
+          "optional": false
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "strokeWidth",
+          "type": "number",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "IconButton",
+      "sourcePath": "components/core/IconButton.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "tooltipAlign",
+          "type": "'center' | 'start' | 'end'",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "NavLink",
+      "sourcePath": "components/core/NavLink.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "active",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControl",
+      "sourcePath": "components/core/SegmentedControl.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "options",
+          "type": "ReadonlyArray<{ value: string; label: React.ReactNode; disabled?: boolean }>",
+          "optional": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string) => void",
+          "optional": true
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "StatusBadge",
+      "sourcePath": "components/core/StatusBadge.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "tone",
+          "type": "'neutral' | 'info' | 'success' | 'warning' | 'error'",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "Surface",
+      "sourcePath": "components/core/Surface.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "variant",
+          "type": "'outline' | 'soft' | 'plain'",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "TextLink",
+      "sourcePath": "components/core/TextLink.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "external",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "EmptyState",
+      "sourcePath": "components/feedback/EmptyState.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "body",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "actionLabel",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "actionHref",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "onAction",
+          "type": "(e: React.MouseEvent<HTMLButtonElement>) => void",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "InlineFeedback",
+      "sourcePath": "components/feedback/InlineFeedback.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "tone",
+          "type": "'info' | 'success' | 'warning' | 'error'",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Toast",
+      "sourcePath": "components/feedback/Toast.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "tone",
+          "type": "'info' | 'success' | 'warning' | 'error'",
+          "optional": true
+        },
+        {
+          "name": "temp",
+          "type": "'info' | 'warm' | 'gentle' | 'danger' | 'success' | 'warning' | 'error'",
+          "optional": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "actionLabel",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "onAction",
+          "type": "() => void",
+          "optional": true
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "ToastDark",
+      "sourcePath": "components/feedback/ToastDark.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "sourcePath": "components/forms/Checkbox.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "Field",
+      "sourcePath": "components/forms/Field.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "help",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactElement",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "Input",
+      "sourcePath": "components/forms/Input.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "controlClassName",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "help",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "NotesArea",
+      "sourcePath": "components/forms/NotesArea.jsx",
+      "layer": "pattern",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "placeholder",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Select",
+      "sourcePath": "components/forms/Select.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "controlClassName",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "help",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "options",
+          "type": "string[]",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Textarea",
+      "sourcePath": "components/forms/Textarea.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "help",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "error",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "controlClassName",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "AsyncState",
+      "sourcePath": "components/patterns/AsyncState.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "state",
+          "type": "'loading' | 'empty' | 'error' | 'ready'",
+          "optional": false
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "loadingMessage",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "emptyMessage",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "errorMessage",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "onRetry",
+          "type": "() => void",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "ConfirmAction",
+      "sourcePath": "components/patterns/ConfirmAction.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "triggerLabel",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "confirmLabel",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "optional": false
+        },
+        {
+          "name": "onConfirm",
+          "type": "() => void | Promise<void>",
+          "optional": false
+        },
+        {
+          "name": "errorMessage",
+          "type": "string | ((reason: unknown) => string)",
+          "optional": true
+        },
+        {
+          "name": "pendingLabel",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "cancelLabel",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "FocusInput",
+      "sourcePath": "components/patterns/FocusInput.jsx",
+      "layer": "pattern",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "eyebrow",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "prompt",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "hint",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "onChange",
+          "type": "(e: React.ChangeEvent<HTMLInputElement>) => void",
+          "optional": true
+        },
+        {
+          "name": "onConfirm",
+          "type": "(e: React.KeyboardEvent<HTMLInputElement>) => void",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "ProcessDisclosure",
+      "sourcePath": "components/patterns/ProcessDisclosure.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "status",
+          "type": "'idle' | 'running' | 'success' | 'error'",
+          "optional": true
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "optional": false
+        },
+        {
+          "name": "message",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "onRetry",
+          "type": "() => void",
+          "optional": true
+        },
+        {
+          "name": "retryLabel",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "StreamViewport",
+      "sourcePath": "components/patterns/StreamViewport.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "updateKey",
+          "type": "string | number",
+          "optional": true
+        },
+        {
+          "name": "height",
+          "type": "number | string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "jumpLabel",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "ToastHost",
+      "sourcePath": "components/patterns/ToastHost.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "notices",
+          "type": "Notice[]",
+          "optional": false
+        },
+        {
+          "name": "onDismiss",
+          "type": "(id: string) => void",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "ProgressLine",
+      "sourcePath": "components/tasks/ProgressLine.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "TaskItem",
+      "sourcePath": "components/tasks/TaskItem.jsx",
+      "layer": "pattern",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "done",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "onToggle",
+          "type": "() => void",
+          "optional": true
+        },
+        {
+          "name": "onDelete",
+          "type": "() => void",
+          "optional": true
+        }
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "components/charts/BarChart.jsx": "68824283efb8f5ca240a7e22d3d27e4ec4b6ab4036e4b6fa46b79c06007cd2eb",
+    "components/charts/DataTable.jsx": "8f5eadea4a4ae241c946bdac0ee61eb6c72ada9ba3d6575faa80d6063f6f96c3",
+    "components/charts/LineChart.jsx": "3eab3bc554eea64c431924c55eb41ed0f969c1c10accbce2c53240bbaf9ec738",
+    "components/charts/SparkLine.jsx": "0dfbc945bb273424ef41909dce6996d613d1a32b5b9147a8c322e140e604316b",
+    "components/charts/chart-layout.js": "80afa4cce944e57b456d4dc40e21b25d529b402467308d368fcd92647bcd0ae8",
+    "components/content/Blockquote.jsx": "b57b98e93c4a1796deee1a75a606678ecca0212c07da161a02721b41b8e75e36",
+    "components/content/ReadingCard.jsx": "5aada5f9b1d263d6a84196ce73cd20bcba7e105b191e7a2c18d0c728738d4bb4",
+    "components/content/SideCard.jsx": "c302fd34adb79d2c46bbf71e956e253af98ea1f8c90978501c060f0101562111",
+    "components/content/StatCard.jsx": "9f35449604c64c473c0d84f55a3c940b95e30780f7038b64c951e8f7c577530e",
+    "components/content/Tag.jsx": "b2dfa49a5765e3a1b8cb045d38ad0d27faac92a41c3f2ed93af1a24dc2aed987",
+    "components/content/VerseDivider.jsx": "6a2dc68cd5392f5450ca6bdc5996cdc7ed4aad6085236c26d0742c8c4d6090da",
+    "components/core/BackLink.jsx": "a9cfd58ba5df2ad2c21a2c779507833e0504aa5082708dd6f4a23905e18dd548",
+    "components/core/Button.jsx": "85d3290887e933991ff2f48541185d45b3840d843bf434ad221d484815df8f0b",
+    "components/core/FilterChip.jsx": "b9ca87885fb69b966023d068f12d15ae918d2050068983aac2353c97876ffd56",
+    "components/core/Icon.jsx": "52f593314cf49cf57148098d0f9e2fed440d8b5e9f76c0a66ad8cfef5149f157",
+    "components/core/IconButton.jsx": "6445ee101e713e57505400e3c89c3d06e786cdcb7c9ee71b0a23cc2708ff3847",
+    "components/core/NavLink.jsx": "a312b10fa7ff0a63e54c480184d2c2602b37642fe65f0dc53452c58f9ad85d7d",
+    "components/core/SegmentedControl.jsx": "84dab55bbe50640133038e145bd5a56f6bbc70ac39b7a8138340e613d6870029",
+    "components/core/StatusBadge.jsx": "2e47be2f543eb57e5324742b53570dfd82474784a3010706d0e5da165ef49889",
+    "components/core/Surface.jsx": "c7078a63f71cf65094fcb5f62fc558e5dbd78464050c4be528fbebf638f9722f",
+    "components/core/TextLink.jsx": "d44d6150a17af7389e232a7e69878851b10826e0a34252171f3f545f92266e41",
+    "components/feedback/EmptyState.jsx": "02204ae9df8c86f37e152df962c8d9f8bff853e2be1ebfac9fe21adf1fa30c01",
+    "components/feedback/InlineFeedback.jsx": "ad062dfcf8f6d17339abd8927c4d8a90f7253db789215c85a334fce5f384da59",
+    "components/feedback/Toast.jsx": "a7b0451f58a16eb8ccac5e36be51bae842eaf8eeb9f7cc1465898f2c3a65da4d",
+    "components/feedback/ToastDark.jsx": "59dedf72eed77e4f060670437ffc743ca246e6c884723e76cff05a2634c370b3",
+    "components/forms/Checkbox.jsx": "70ce8850a54ed1f1af7bcea713c8510817c07e4acc0bd8ee48326eb18cd2c8d0",
+    "components/forms/Field.jsx": "bc9517b14771d4ffe85a308c655db96b819316845cc3decd5eeef879a0caeea2",
+    "components/forms/Input.jsx": "10d2e0e227cc0362870660be7620df66cb434c2e8a92638eeaace2f1aa55a7f9",
+    "components/forms/NotesArea.jsx": "d5123e2ea1ca2a471dcd8a2a4f8581b65fc2f7939ac274425932b2bb6a6e4c00",
+    "components/forms/Select.jsx": "248f9c3d67910aeba33e2ec6fc38fdb917307c5c61b9f420ce559fe739de2643",
+    "components/forms/Textarea.jsx": "cf250a4d46fcd3ae97be858287d4c00c9669dc473bb7af81d47de671dcce0c8f",
+    "components/patterns/AsyncState.jsx": "ae35af33001e59a427334869ce6d46f5a07442695ab6b712ff6c34ef6fbfff39",
+    "components/patterns/ConfirmAction.jsx": "ed9c42199c06e4e414d339c8f74f309f337f029ceaae92f15a3773f2068b5b20",
+    "components/patterns/FocusInput.jsx": "51a9c7908a3e58f52db19c5cba9d29a2b8024742a71e610b904527a20b532232",
+    "components/patterns/ProcessDisclosure.jsx": "c05b9962b1a49714a5ca521be9bc1b74a70bd255a8ec32be39cfa6e7da817b9c",
+    "components/patterns/StreamViewport.jsx": "cd74c8128549ac720ae2e77a211504a18f7c9f2663370b863fcd7853dd52ac32",
+    "components/patterns/ToastHost.jsx": "637e6e4d270efa79d7ff26bd504b1dbf4e4c5c4cd824e5d0251b00a02bb13517",
+    "components/tasks/ProgressLine.jsx": "cd48db258a13b5ae1f3f5682b26b7ca527519bd9903a956cb5599e69546b51eb",
+    "components/tasks/TaskItem.jsx": "2f2e6c42282537a4cf77d554ce57636f2d3b6e6cd73be133c97b9bdd8c512cd8"
+  },
+  "inlinedExternals": [],
+  "unexposedExports": [],
+  "cards": [
+    {
+      "path": "components/charts/charts.card.html",
+      "group": "Components",
+      "viewport": "700x1150",
+      "name": "Charts 图表",
+      "subtitle": "KAI 图表语言"
+    },
+    {
+      "path": "components/content/content.card.html",
+      "group": "Components",
+      "viewport": "700x980",
+      "name": "Content 内容"
+    },
+    {
+      "path": "components/core/buttons.card.html",
+      "group": "Components",
+      "viewport": "700x690",
+      "name": "Core · Button 与 Link",
+      "subtitle": "10px 圆角 · 语义图标 · 状态合同"
+    },
+    {
+      "path": "components/core/selection-controls.card.html",
+      "group": "Components",
+      "viewport": "700x590",
+      "name": "Core · 筛选与状态",
+      "subtitle": "FilterChip · SegmentedControl · StatusBadge · 原生 HTML"
+    },
+    {
+      "path": "components/core/surface-hierarchy.card.html",
+      "group": "Components",
+      "viewport": "700x390",
+      "name": "Core · Surface 层级",
+      "subtitle": "outline 外框 · soft 内层 · plain 内容"
+    },
+    {
+      "path": "components/feedback/feedback.card.html",
+      "group": "Components",
+      "viewport": "700x560",
+      "name": "Feedback 反馈"
+    },
+    {
+      "path": "components/forms/forms.card.html",
+      "group": "Components",
+      "viewport": "700x660",
+      "name": "Forms 表单",
+      "subtitle": "Field 契约"
+    },
+    {
+      "path": "components/patterns/focus-pattern.card.html",
+      "group": "Patterns",
+      "viewport": "700x400",
+      "name": "Focus 一天一件事",
+      "subtitle": "KAI 产品模式 · 非 Core"
+    },
+    {
+      "path": "components/patterns/rea-interactions.card.html",
+      "group": "Patterns",
+      "viewport": "1000x680",
+      "name": "REA × Claude · 交互借鉴",
+      "subtitle": "过程可见 · 滚动有控制 · KAI 视觉"
+    },
+    {
+      "path": "components/tasks/tasks.card.html",
+      "group": "Components",
+      "viewport": "700x420",
+      "name": "Tasks 待办"
+    },
+    {
+      "path": "guidelines/borders-radius.card.html",
+      "group": "Spacing",
+      "viewport": "700x330",
+      "name": "边界与圆角",
+      "subtitle": "小框 8 · 按钮 10 · 容器 12"
+    },
+    {
+      "path": "guidelines/brand-glow.card.html",
+      "group": "Brand",
+      "viewport": "700x230",
+      "name": "品牌时刻",
+      "subtitle": "原「斜光」· opt-in · 编辑性页面才点灯"
+    },
+    {
+      "path": "guidelines/brand-icons.card.html",
+      "group": "Voice",
+      "viewport": "700x410",
+      "name": "符号语言",
+      "subtitle": "轻线条图标 · 语义清楚 · 少量 Signature"
+    },
+    {
+      "path": "guidelines/brand-layers.card.html",
+      "group": "Brand",
+      "viewport": "700x300",
+      "name": "两层结构",
+      "subtitle": "Quiet Base 90% · Signature 10%"
+    },
+    {
+      "path": "guidelines/brand-motion.card.html",
+      "group": "Brand",
+      "viewport": "700x210",
+      "name": "Motion",
+      "subtitle": "入场一次 · hover 只变颜色 · 无位移"
+    },
+    {
+      "path": "guidelines/brand-voice.card.html",
+      "group": "Voice",
+      "viewport": "700x280",
+      "name": "语气",
+      "subtitle": "不警告 · 不邀功 · 不归咎 · 事实例外"
+    },
+    {
+      "path": "guidelines/charts-language.card.html",
+      "group": "Charts",
+      "viewport": "700x250",
+      "name": "图表语言",
+      "subtitle": "数据线 2px · 网格中性 · mono 标数"
+    },
+    {
+      "path": "guidelines/colors-accent.card.html",
+      "group": "Colors",
+      "viewport": "700x190",
+      "name": "Blue 蓝色是性格",
+      "subtitle": "steel blue · 身份、选中、焦点、少量链接"
+    },
+    {
+      "path": "guidelines/colors-green.card.html",
+      "group": "Colors",
+      "viewport": "700x190",
+      "name": "Green 绿色是呼吸",
+      "subtitle": "完成 · 恢复 · 自然 · 让界面松下来"
+    },
+    {
+      "path": "guidelines/colors-neutral.card.html",
+      "group": "Colors",
+      "viewport": "700x210",
+      "name": "Quiet Base 中性色",
+      "subtitle": "低噪音层级 · 必要次级文字对比度至少 4.5"
+    },
+    {
+      "path": "guidelines/colors-text.card.html",
+      "group": "Colors",
+      "viewport": "700x220",
+      "name": "文字色与对比度",
+      "subtitle": "四级中性 · 全部达标"
+    },
+    {
+      "path": "guidelines/colors-warm.card.html",
+      "group": "Colors",
+      "viewport": "700x140",
+      "name": "温度色",
+      "subtitle": "warm 表达留意 · danger 只用于事实性失败"
+    },
+    {
+      "path": "guidelines/experiment-surface.card.html",
+      "group": "Experiments",
+      "viewport": "700x310",
+      "name": "实验 · 容器柔和度",
+      "subtitle": "8 / 12 / 16px 对照 · 采用 12px"
+    },
+    {
+      "path": "guidelines/mobile-scale.card.html",
+      "group": "Mobile",
+      "viewport": "700x200",
+      "name": "字号塌缩",
+      "subtitle": "只动大字档 · 小的依然小"
+    },
+    {
+      "path": "guidelines/mobile-tap.card.html",
+      "group": "Mobile",
+      "viewport": "700x220",
+      "name": "触控与输入",
+      "subtitle": "≥44px · 16px 防缩放 · 常显删除"
+    },
+    {
+      "path": "guidelines/spacing-rhythm.card.html",
+      "group": "Spacing",
+      "viewport": "700x280",
+      "name": "排版节奏",
+      "subtitle": "签名层：断行与诗句感"
+    },
+    {
+      "path": "guidelines/spacing-scale.card.html",
+      "group": "Spacing",
+      "viewport": "700x240",
+      "name": "间距标尺",
+      "subtitle": "4px 基数 · 12 档"
+    },
+    {
+      "path": "guidelines/type-mono-data.card.html",
+      "group": "Type",
+      "viewport": "700x230",
+      "name": "Mono 纯数据",
+      "subtitle": "时间 · 数值 · 代码 · ID · 状态"
+    },
+    {
+      "path": "guidelines/type-roles.card.html",
+      "group": "Type",
+      "viewport": "700x330",
+      "name": "Type Roles",
+      "subtitle": "先定角色，再定字号"
+    },
+    {
+      "path": "guidelines/type-serif-signature.card.html",
+      "group": "Type",
+      "viewport": "700x250",
+      "name": "Serif 签名",
+      "subtitle": "只在被点名的地方出声"
+    },
+    {
+      "path": "guidelines/type-ui-sans.card.html",
+      "group": "Type",
+      "viewport": "700x250",
+      "name": "UI Sans 默认语言",
+      "subtitle": "系统字体 · 中文优先 · 零设计感"
+    },
+    {
+      "path": "ui_kits/daily-planner-mobile/index.html",
+      "group": "UI Kits",
+      "viewport": "390x880",
+      "name": "Planner 移动版",
+      "subtitle": "390 · 触控优先 · 全安静"
+    },
+    {
+      "path": "ui_kits/daily-planner/index.html",
+      "group": "UI Kits",
+      "viewport": "680x980",
+      "name": "今日 Planner",
+      "subtitle": "工具页 · 全安静，serif 只留一处"
+    },
+    {
+      "path": "ui_kits/research-flow/index.html",
+      "group": "UI Kits",
+      "viewport": "980x900",
+      "name": "研究流程 · 状态与层级",
+      "subtitle": "检索 → 处理中 → 结果/失败 · 外框与内层分工"
+    },
+    {
+      "path": "ui_kits/studio-home/index.html",
+      "group": "UI Kits",
+      "viewport": "900x860",
+      "name": "工作台首页",
+      "subtitle": "品牌页 · kai-moment 点亮"
+    }
+  ],
+  "startingPoints": [
+    {
+      "kind": "screen",
+      "name": "daily-planner-mobile",
+      "path": "ui_kits/daily-planner-mobile/index.html",
+      "previewPath": "ui_kits/daily-planner-mobile/index.html",
+      "section": "Screens",
+      "subtitle": "Planner 移动版",
+      "viewport": "390x880"
+    },
+    {
+      "kind": "screen",
+      "name": "daily-planner",
+      "path": "ui_kits/daily-planner/index.html",
+      "previewPath": "ui_kits/daily-planner/index.html",
+      "section": "Screens",
+      "subtitle": "今日 Planner",
+      "viewport": "680x980"
+    },
+    {
+      "kind": "screen",
+      "name": "research-flow",
+      "path": "ui_kits/research-flow/index.html",
+      "previewPath": "ui_kits/research-flow/index.html",
+      "section": "Screens",
+      "subtitle": "研究流程 · Surface 层级与 Tooltip",
+      "viewport": "980x900"
+    },
+    {
+      "kind": "screen",
+      "name": "studio-home",
+      "path": "ui_kits/studio-home/index.html",
+      "previewPath": "ui_kits/studio-home/index.html",
+      "section": "Screens",
+      "subtitle": "工作台首页",
+      "viewport": "900x860"
+    }
+  ]
+}

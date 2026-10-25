@@ -1,0 +1,25 @@
+export const colorTokens: Readonly<{
+  "page": "#f7f7f5",
+  "surface": "#ffffff",
+  "sunken": "#f0f1f2",
+  "text-1": "#1f2124",
+  "text-2": "#5f646b",
+  "text-3": "#6b7077",
+  "text-4": "#b6b9be",
+  "text-inverse": "#ffffff",
+  "border-1": "#e6e8ea",
+  "border-2": "#d3d7db",
+  "accent": "#315a75",
+  "accent-deep": "#294b61",
+  "accent-wash": "#e7edf1",
+  "graphite": "#24272b",
+  "graphite-deep": "#1a1c1f",
+  "danger": "#a0524a",
+  "fresh": "#4f806b",
+  "fresh-deep": "#3f6753",
+  "fresh-wash": "#e3ece7",
+  "deep": "#16222b",
+  "warm-500": "#c9a84c",
+  "warm-600": "#80651e"
+}>;
+export const colorChannels: Readonly<Record<keyof typeof colorTokens, string>>;

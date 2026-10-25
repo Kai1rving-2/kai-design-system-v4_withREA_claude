@@ -65,20 +65,20 @@
     color var(--duration-base) var(--ease-default);
 }
 .kai-btn--primary {
-  background: var(--graphite);   /* KAI 没有 Primary Color：主行动是近黑 */
-  color: var(--text-inverse);
-  border: 1px solid var(--graphite);
+  background: var(--action-bg, var(--graphite));   /* KAI 没有 Primary Color：主行动是近黑 */
+  color: var(--action-fg, var(--text-inverse));
+  border: 1px solid var(--action-bg, var(--graphite));
 }
-.kai-btn--primary:hover { background: var(--graphite-deep); border-color: var(--graphite-deep); }
+.kai-btn--primary:hover { background: var(--action-hover-bg, var(--graphite-deep)); color: var(--action-hover-fg, var(--text-inverse)); border-color: var(--action-hover-bg, var(--graphite-deep)); }
 .kai-btn--secondary {
   background: var(--surface);
   color: var(--text-1);
   border: 1px solid var(--border-2);
 }
 .kai-btn--secondary:hover { background: var(--sunken); }
-.kai-btn--primary:active { background: #141619; }
+.kai-btn--primary:active { background: var(--action-pressed-bg, var(--graphite-deep)); color: var(--action-pressed-fg, var(--text-inverse)); border-color: var(--action-pressed-bg, var(--graphite-deep)); }
 .kai-btn--secondary:active { background: var(--border-1); }
-.kai-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.kai-btn:focus-visible { outline: 2px solid var(--focus-ring, var(--accent)); outline-offset: 2px; }
 .kai-btn.is-pending { opacity: 0.55; pointer-events: none; cursor: progress; }
 .kai-btn:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
 
@@ -857,3 +857,39 @@
 .kai-stream-viewport[data-fade-top="true"][data-fade-bottom="true"] { -webkit-mask-image: linear-gradient(to bottom, transparent, black 18px, black calc(100% - 18px), transparent); mask-image: linear-gradient(to bottom, transparent, black 18px, black calc(100% - 18px), transparent); }
 .kai-stream-jump { position: absolute; right: var(--space-3); bottom: var(--space-3); }
 @media (pointer: coarse) { .kai-process-toggle, .kai-stream-jump { min-height: var(--tap-target); } }
+
+/* Shared HTML/React action recipes. Use real buttons and aria-pressed for state. */
+.kai-filter-chip, .kai-segmented-option {
+  appearance: none; display: inline-flex; justify-content: center; align-items: center;
+  gap: var(--space-2); min-height: 36px; padding: 7px 12px;
+  border: 1px solid var(--border-2); border-radius: var(--radius-control);
+  background: var(--surface); color: var(--text-2);
+  font: var(--weight-medium) var(--text-label)/var(--leading-ui) var(--font-ui);
+  cursor: pointer; transition: background var(--duration-base), color var(--duration-base), border-color var(--duration-base);
+}
+.kai-filter-chip { border-radius: 999px; }
+.kai-filter-chip:hover:not(:disabled):not([aria-pressed="true"]):not(.is-selected), .kai-segmented-option:hover:not(:disabled):not([aria-pressed="true"]) { background: var(--sunken); }
+.kai-filter-chip:active:not(:disabled):not([aria-pressed="true"]):not(.is-selected), .kai-segmented-option:active:not(:disabled):not([aria-pressed="true"]) { background: var(--border-1); }
+.kai-filter-chip[aria-pressed="true"], .kai-filter-chip.is-selected,
+.kai-segmented-option[aria-pressed="true"] { background: var(--accent-wash); color: var(--accent); border-color: var(--accent); }
+.kai-filter-chip:focus-visible, .kai-segmented-option:focus-visible { outline: 2px solid var(--focus-ring, var(--accent)); outline-offset: 2px; }
+.kai-filter-chip:disabled, .kai-segmented-option:disabled { opacity: .4; cursor: default; }
+.kai-filter-chip-count { font: var(--weight-text) var(--text-caption)/var(--leading-ui) var(--font-mono); font-variant-numeric: tabular-nums; }
+.kai-segmented { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 3px; padding: 3px; border: 1px solid var(--border-1); border-radius: var(--radius-control); background: var(--surface); }
+.kai-segmented-option { border-color: transparent; background: transparent; }
+.kai-segmented-option[aria-pressed="true"] { border-color: transparent; }
+.kai-status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: var(--radius-sm); background: var(--sunken); color: var(--text-2); font: var(--weight-medium) var(--text-caption)/var(--leading-ui) var(--font-ui); }
+.kai-status-badge--info, .kai-status-badge[data-tone="info"] { color: var(--accent-deep); background: var(--accent-wash); }
+.kai-status-badge--success, .kai-status-badge[data-tone="success"] { color: var(--fresh-deep); background: var(--fresh-wash); }
+.kai-status-badge--warning, .kai-status-badge[data-tone="warning"] { color: var(--warm-600); }
+.kai-status-badge--error, .kai-status-badge[data-tone="error"] { color: var(--danger); }
+.kai-async-action[aria-busy="true"] { cursor: progress; }
+.kai-async-feedback { color: var(--text-2); font: var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+.kai-async-feedback[data-state="error"] { color: var(--danger); }
+.kai-async-feedback[data-state="success"] { color: var(--fresh-deep); }
+.kai-data-freshness { display: inline-flex; align-items: center; gap: 6px; color: var(--text-2); font: var(--text-caption)/var(--leading-ui) var(--font-ui); }
+.kai-data-freshness::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); flex: none; }
+.kai-data-freshness[data-state="live"]::before { background: var(--fresh); }
+.kai-data-freshness[data-state="stale"]::before { background: var(--warm-600); }
+.kai-data-freshness[data-state="error"]::before { background: var(--danger); }
+@media (pointer: coarse) { .kai-filter-chip, .kai-segmented-option { min-height: var(--tap-target); } }

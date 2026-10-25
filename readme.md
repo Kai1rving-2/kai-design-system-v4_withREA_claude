@@ -1,6 +1,58 @@
 # kai-design-system-v4_withREA_claude
 
-KAI Design System v4.3 · REA × Claude 交互版。一个可供浏览、复用的 React 设计系统与静态交互展示。
+KAI Design System v4.3 · REA × Claude 交互版。可供 React 产品、静态 React 原型和原生 HTML 使用的组件、样式与行为配方。
+
+## 独行侠模板 · 换电脑使用
+
+- [在线预览 A/B/C 配色](https://kai1rving-2.github.io/kai-design-system-v4_withREA_claude/designs/mavericks-colors/)
+- [安装与跨电脑使用说明](./docs/cross-machine-mavericks.md)
+- [可独立安装的 kai-mavericks Skill](./skills/kai-mavericks/SKILL.md)：包含三套主题、字体、运行库与模板，默认 B 午夜蓝，不依赖本机绝对路径。
+
+在另一台电脑的 Codex 中可以说：
+
+```text
+请用 skill-installer 安装 https://github.com/Kai1rving-2/kai-design-system-v4_withREA_claude/tree/main/skills/kai-mavericks
+```
+
+安装后调用 `$kai-mavericks`，例如「用 B 午夜蓝模板做一个项目工作台」。维护者运行 `npm run build` 更新可移植资源，`npm run skill:check` 校验资源与源码一致。
+
+## 4.3.0-rea.7 · 跨项目复用
+
+- 主按钮支持完整 action 状态颜色与 focus token；Dallas 的三套主题从一份 JSON 生成 CSS/RGB，并验证必要文字和 action 对比度。
+- 新增 `FilterChip`、`SegmentedControl`、`StatusBadge`，同步公开原生 HTML 类名与异步、新鲜度反馈配方。
+- 图表支持容器内可读布局，预览从源卡片重新生成；产品复制与原型导入记录各自的消费模式与资源来源。
+- [原生 HTML 起点](./examples/html-controls/index.html) 可直接离线打开，展示筛选、互斥选项、表单、持续错误和恢复；所有操作均为本地合成示例。
+
+### 选择消费方式
+
+| 使用场景 | 接入方式 | 行为归属 |
+| --- | --- | --- |
+| React 产品 | 从 `index.js` 导入组件、从 `styles.css` 导入样式；使用对应 TypeScript 声明 | 组件保证原生语义；产品负责请求、权限、取消和数据事实 |
+| 静态 React 原型 | 本地 React runtime、浏览器 `_ds_bundle.js` 与样式；交付时可预编译页面 JSX | 原型负责真实/示例状态的区分 |
+| 原生 HTML | `styles.css`、公共类名、语义化 HTML 和本地行为脚本 | 页面负责 disabled、aria-busy、字段关联、错误恢复及状态同步 |
+
+原生 HTML 是一等接入路径，不要求加载 React、bundle 或 CDN。CSS 提供外观；加上 `.is-pending` 本身不能阻止键盘提交。静态页面同样可以使用原生 HTML，按产品已有技术栈选择。
+
+### 主题与公共控件
+
+action 角色为 `--action-bg` / `--action-fg`、`--action-hover-bg` / `--action-hover-fg`、`--action-pressed-bg` / `--action-pressed-fg`，焦点为 `--focus-ring`。未显式设置时，组件沿用 graphite、graphite-deep、text-inverse 与 accent；局部主题直接在其根容器覆盖。pressed 默认统一使用 graphite-deep，避免组件内硬编码颜色。
+
+`scripts/theme-utils.mjs` 提供 `resolveTheme(baseColors, overrides)`、`validateTheme(colors, requiredKeys, name)` 和 `themeRule(selector, colors, colorScheme)`。先合并颜色、校验，再生成完整 CSS 与 RGB 通道。`designs/mavericks-colors/themes.json` 是 Dallas 唯一配色来源，运行 `node scripts/themes.mjs` 生成 `themes.css`；`npm run theme:check` 检查生成一致性，必要文字/action 配对至少 4.5，focus 对 page/surface 至少 3。主题必须连同 hover、pressed 和前景一起验证，不能只替换一颗 accent。
+
+```tsx
+<FilterChip selected={selected} count={3} onClick={toggle}>账号</FilterChip>
+<SegmentedControl label="时间范围" value={range} onValueChange={setRange}
+  options={[{ value: 'hour', label: '小时' }, { value: 'day', label: '天' }]} />
+<StatusBadge tone="success">已经完成</StatusBadge>
+```
+
+`FilterChip` 透传原生 button 属性，`selected` 映射到 `aria-pressed`，`count` 为数值。`SegmentedControl` 接收 options、受控 value 或 defaultValue，是互斥操作按钮组，不冒充 Tabs。`StatusBadge` 支持 neutral / info / success / warning / error，是静态状态文字；异步公告由外围流程负责。
+
+HTML 使用 `.kai-filter-chip[aria-pressed]`、`.kai-filter-chip-count`、`.kai-segmented > .kai-segmented-option[aria-pressed]`、`.kai-status-badge[data-tone]`。异步动作采用真实 `button.disabled` 与 `aria-busy`，`.kai-async-feedback[data-state="error"]` 保留错误及重试；`.kai-data-freshness[data-state="live|stale|error"]` 展示事实状态，产品提供真实时间和来源。
+
+### 升级范围
+
+主题契约、控件、HTML 配方、图表、生成与复制检查属于整个本变体，统一回收到系统；Dallas 使用主题和控件，CLIProxy 使用原生 HTML 配方。账号请求竞争、取消、接口错误和 key 操作由 CLIProxy 修复；球队色值与版式留在 Dallas。设备采集、课程题库及其他业务规则不会进入 Core。旧版 `kai-design-system-v4` 保持独立，按消费方需要迁移，不直接批量覆盖其他变体。
 
 ## 快速开始
 
@@ -254,7 +306,7 @@ import 'kai-design-system-v4_withrea_claude/styles.css';
 
 原生属性、ref 与自定义 className 受类型检查。Input/Select/Textarea 的 className/style 保持 v4.2 的 **Field 外层**含义，`controlClassName` 指向原生控件。Field 合并描述 ID，只引用真实呈现的内部提示；error 暂时替代 help。
 
-仅导入 CSS 的项目仍需自己实现 disabled、busy、标签关联等行为；不能把 `.is-pending` 当作键盘操作保障。使用组件可自动获得这些契约。静态 Tag 不用于选择；选择用 Checkbox。
+仅导入 CSS 的项目仍需自己实现 disabled、busy、标签关联等行为；不能把 `.is-pending` 当作键盘操作保障。使用组件可自动获得这些契约。静态 Tag 不用于选择；布尔字段用 Checkbox，筛选切换用 FilterChip。
 
 ### 可追踪复制
 
@@ -265,6 +317,8 @@ npm run build
 node scripts/vendor.mjs /path/to/product/src/styles/kai
 node scripts/vendor.mjs /path/to/product/src/styles/kai --check
 ```
+
+原型副本使用 `node scripts/export-prototype.mjs /path/to/project/_ds/kai --mode static-react`；原生 HTML 原型选择 `--mode html`。追加 `--check` 比较快照与当前源。首次接管既有原型时，用 `--adopt-from /path/to/verified-original-source` 逐文件校验原来源；不要直接覆盖来源不明或被手改的资源。该路径为原型生成消费提示与资源快照，产品模块复制仍使用 vendor。
 
 生成 `.kai-source.json` 记录版本与逐文件哈希。后续同步会拒绝覆盖消费端被手改的 vendored 文件；产品覆盖放在独立 app.css 中。修改 `tokens/colors.json` 后构建，CSS、JS 和类型会同步生成；MapLibre/Canvas 的适配由产品使用 JS token 完成。不要再手工复制 hex。
 

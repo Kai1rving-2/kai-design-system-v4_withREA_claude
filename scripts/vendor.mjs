@@ -19,8 +19,10 @@ if (previous) {
     if (!fs.existsSync(current) || hash(current) !== expected) throw new Error(`Vendored file changed locally: ${file}. Move overrides to the product layer before syncing.`);
   }
 }
-const manifest = { package: 'kai-design-system-v4_withrea_claude', version: JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')).version,
-  files: Object.fromEntries(files.map(file => [file,hash(path.join(root,file))])) };
+const pkg = JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
+const fileHashes = Object.fromEntries(files.map(file => [file,hash(path.join(root,file))]));
+const manifest = { format: 1, package: pkg.name, version: pkg.version, consumptionMode: 'module-or-html', source: root.replace(/\/$/, ''),
+  sourceHash: createHash('sha256').update(JSON.stringify(fileHashes)).digest('hex'), files: fileHashes };
 if (process.argv.includes('--check')) {
   if (!previous || JSON.stringify(previous) !== JSON.stringify(manifest)) throw new Error('Consumer and source snapshots differ; run the sync command.');
 } else {

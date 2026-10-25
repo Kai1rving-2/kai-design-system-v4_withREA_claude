@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Icon, Input, Select, Textarea, Field, Checkbox, Surface, IconButton, TextLink, AsyncState, ConfirmAction, ToastHost, FocusInput, ProcessDisclosure, StreamViewport } from '../index.js';
+import { Button, Icon, Input, Select, Textarea, Field, Checkbox, Surface, IconButton, TextLink, AsyncState, ConfirmAction, ToastHost, FocusInput, ProcessDisclosure, StreamViewport, FilterChip, SegmentedControl, StatusBadge } from '../index.js';
 import { colorTokens } from '../tokens/colors.js';
 
 const ref = React.createRef<HTMLInputElement>();
@@ -20,6 +20,9 @@ export const consumer = <Surface style={{ color: colorTokens['text-1'] }}>
   <FocusInput value="" onChange={() => {}} onConfirm={() => {}} />
   <ProcessDisclosure title="整理资料" status="error" onRetry={() => {}}>网络中断，内容仍保留。</ProcessDisclosure>
   <StreamViewport updateKey={2} label="动态记录"><p>第二条记录</p></StreamViewport>
+  <FilterChip selected count={3} onClick={() => {}}>账号</FilterChip>
+  <SegmentedControl label="时间范围" value="day" options={[{ value: 'hour', label: '小时' }, { value: 'day', label: '天' }]} onValueChange={() => {}} />
+  <StatusBadge tone="success" title="本地合成结果">已完成</StatusBadge>
 </Surface>;
 // @ts-expect-error invalid variant must not be silently accepted
 export const invalid = <Button variant="invented" />;
@@ -31,3 +34,10 @@ export const invalidProcess = <ProcessDisclosure title="过程" status="unknown"
 export const invalidIcon = <Icon name="confetti" />;
 // @ts-expect-error surfaces only expose the three documented layers
 export const invalidSurface = <Surface variant="floating" />;
+
+// @ts-expect-error badge tone must describe a supported visual status
+export const invalidBadge = <StatusBadge tone="danger">错误</StatusBadge>;
+// @ts-expect-error counts are numeric data
+export const invalidCount = <FilterChip count="three">账号</FilterChip>;
+// @ts-expect-error mutually exclusive action groups require a meaningful accessible label
+export const unlabelledSegments = <SegmentedControl options={[{ value: 'day', label: '天' }]} />;

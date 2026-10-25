@@ -1,0 +1,64 @@
+<!-- @dsCard group="Components" viewport="700x590" name="Core · 筛选与状态" subtitle="FilterChip · SegmentedControl · StatusBadge · 原生 HTML" -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../designs/mavericks-colors/vendor/react.js"></script>
+  <script src="../../designs/mavericks-colors/vendor/react-dom.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <style>
+    body { padding: 24px 30px; background: var(--page); }
+    .selection-title { margin: 0 0 8px; font: var(--weight-medium) var(--text-heading)/var(--leading-heading) var(--font-ui); }
+    .selection-note { margin: 0 0 20px; color: var(--text-2); font: var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+    .selection-block { padding-block: 16px; border-top: 1px solid var(--border-1); }
+    .selection-label { margin: 0 0 12px; font: var(--weight-medium) var(--text-caption)/var(--leading-ui) var(--font-ui); color: var(--text-3); }
+    .selection-result { margin: 12px 0 0; color: var(--text-2); font: var(--text-body-sm)/var(--leading-ui) var(--font-ui); }
+    .selection-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .selection-link { display: inline-block; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div id="selection-demo"></div>
+  <a class="kai-textlink selection-link" href="../../examples/html-controls/index.html">打开原生 HTML 完整起点 <span aria-hidden="true">→</span></a>
+  <script>
+    const ds = window.KaiDesignSystemV4_3b9cf5;
+    const element = React.createElement;
+    function SelectionDemo() {
+      const [scope, setScope] = React.useState('全部');
+      const [range, setRange] = React.useState('hour');
+      const [htmlSelected, setHtmlSelected] = React.useState(false);
+      const options = [{ value: 'hour', label: '按小时' }, { value: 'day', label: '按天' }];
+      return element('main', null,
+        element('h1', { className: 'selection-title' }, '选择范围，保留事实。'),
+        element('p', { className: 'selection-note' }, '筛选与互斥选项使用真实按钮；静态状态不冒充通知。'),
+        element('section', { className: 'selection-block' },
+          element('p', { className: 'selection-label' }, 'FILTERCHIP · 点击筛选'),
+          element('div', { className: 'selection-row', role: 'group', 'aria-label': '示例条目筛选' },
+            [['全部',8],['已完成',5],['待处理',3]].map(([label,count]) =>
+              element(ds.FilterChip, { key: label, selected: scope === label, count, onClick: () => setScope(label) }, label))),
+          element('p', { className: 'selection-result', role: 'status' }, '当前查看：' + scope + '。')),
+        element('section', { className: 'selection-block' },
+          element('p', { className: 'selection-label' }, 'SEGMENTEDCONTROL · 互斥操作按钮组'),
+          element('div', { className: 'selection-row' },
+            element(ds.SegmentedControl, { label: '示例时间范围', options, value: range, onValueChange: setRange }),
+            element(ds.StatusBadge, { tone: 'info' }, range === 'hour' ? '小时视图' : '每日视图'))),
+        element('section', { className: 'selection-block' },
+          element('p', { className: 'selection-label' }, 'STATUSBADGE · 状态事实'),
+          element('div', { className: 'selection-row' },
+            element(ds.StatusBadge, null, '等待处理'),
+            element(ds.StatusBadge, { tone: 'success' }, '已经完成'),
+            element(ds.StatusBadge, { tone: 'warning' }, '结果已过期'),
+            element(ds.StatusBadge, { tone: 'error' }, '读取失败'))),
+        element('section', { className: 'selection-block' },
+          element('p', { className: 'selection-label' }, 'HTML · 相同公共类名与原生语义'),
+          element('div', { className: 'selection-row' },
+            element('button', { type: 'button', className: 'kai-filter-chip', 'aria-pressed': htmlSelected, onClick: () => setHtmlSelected(value => !value) }, '仅查看收藏'),
+            element('span', { className: 'kai-status-badge', 'data-tone': htmlSelected ? 'info' : 'neutral' }, htmlSelected ? '筛选已启用' : '未启用筛选')))
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('selection-demo')).render(element(SelectionDemo));
+  </script>
+</body>
+</html>

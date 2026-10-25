@@ -1,0 +1,30 @@
+{
+  "type": "design",
+  "designSystems": [
+    {
+      "name": "kai-design-system-v4_withREA_claude",
+      "slug": "v4_withREA_claude",
+      "namespace": "KaiDesignSystemV4_3b9cf5",
+      "dsFolder": "_ds/v4_withREA_claude",
+      "sourcePath": ""
+    }
+  ],
+  "primaryDesignSystem": "v4_withREA_claude",
+  "createdAt": "2026-10-22T08:17:24.265Z",
+  "updatedAt": "2026-10-22T08:24:25.283Z",
+  "assets": {
+    "Dallas · 三版配色预览": {
+      "versions": [
+        {
+          "path": "index.html",
+          "createdAt": "2026-10-22T08:21:41.102Z",
+          "status": "needs-review",
+          "viewport": {
+            "width": 1440,
+            "height": 1200
+          }
+        }
+      ]
+    }
+  }
+}

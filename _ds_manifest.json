@@ -1,6 +1,6 @@
 {
   "format": 3,
-  "version": "4.3.0-rea.6",
+  "version": "4.3.0-rea.7",
   "namespace": "KaiDesignSystemV4_3b9cf5",
   "components": [
     {
@@ -17,6 +17,36 @@
         {
           "name": "height",
           "type": "number",
+          "optional": true
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "density",
+          "type": "'compact' | 'regular'",
+          "optional": true
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "summary",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "formatValue",
+          "type": "(value: number) => string",
           "optional": true
         }
       ]
@@ -52,7 +82,7 @@
       "props": [
         {
           "name": "data",
-          "type": "Array<number | { value: number }>",
+          "type": "Array<number | { value: number } | null>",
           "optional": false
         },
         {
@@ -63,6 +93,36 @@
         {
           "name": "height",
           "type": "number",
+          "optional": true
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "density",
+          "type": "'compact' | 'regular'",
+          "optional": true
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "summary",
+          "type": "React.ReactNode",
+          "optional": true
+        },
+        {
+          "name": "formatValue",
+          "type": "(value: number) => string",
           "optional": true
         },
         {
@@ -85,7 +145,7 @@
       "props": [
         {
           "name": "data",
-          "type": "number[]",
+          "type": "Array<number | null>",
           "optional": false
         },
         {
@@ -96,6 +156,16 @@
         {
           "name": "height",
           "type": "number",
+          "optional": true
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "label",
+          "type": "string",
           "optional": true
         }
       ]
@@ -300,6 +370,29 @@
       ]
     },
     {
+      "name": "FilterChip",
+      "sourcePath": "components/core/FilterChip.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
       "name": "Icon",
       "sourcePath": "components/core/Icon.jsx",
       "layer": "component",
@@ -359,6 +452,67 @@
         {
           "name": "active",
           "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "optional": false
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControl",
+      "sourcePath": "components/core/SegmentedControl.jsx",
+      "layer": "component",
+      "nativeProps": false,
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "options",
+          "type": "ReadonlyArray<{ value: string; label: React.ReactNode; disabled?: boolean }>",
+          "optional": false
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string) => void",
+          "optional": true
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "optional": true
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "StatusBadge",
+      "sourcePath": "components/core/StatusBadge.jsx",
+      "layer": "component",
+      "nativeProps": true,
+      "props": [
+        {
+          "name": "tone",
+          "type": "'neutral' | 'info' | 'success' | 'warning' | 'error'",
           "optional": true
         },
         {
@@ -960,10 +1114,11 @@
     }
   ],
   "sourceHashes": {
-    "components/charts/BarChart.jsx": "3b392f1ab000a92217ea442ddd6ec239006b3e3a6a15a7b8dba7a6b7cd8bd83a",
+    "components/charts/BarChart.jsx": "68824283efb8f5ca240a7e22d3d27e4ec4b6ab4036e4b6fa46b79c06007cd2eb",
     "components/charts/DataTable.jsx": "8f5eadea4a4ae241c946bdac0ee61eb6c72ada9ba3d6575faa80d6063f6f96c3",
-    "components/charts/LineChart.jsx": "a77f084035d35e5d3d86481f96eebc42094521ad1c77fca60d8f7a6a89ec756e",
-    "components/charts/SparkLine.jsx": "234272618a6b3a653891867c2aff88284603f0325750572188a527ec7c1b3f84",
+    "components/charts/LineChart.jsx": "3eab3bc554eea64c431924c55eb41ed0f969c1c10accbce2c53240bbaf9ec738",
+    "components/charts/SparkLine.jsx": "0dfbc945bb273424ef41909dce6996d613d1a32b5b9147a8c322e140e604316b",
+    "components/charts/chart-layout.js": "80afa4cce944e57b456d4dc40e21b25d529b402467308d368fcd92647bcd0ae8",
     "components/content/Blockquote.jsx": "b57b98e93c4a1796deee1a75a606678ecca0212c07da161a02721b41b8e75e36",
     "components/content/ReadingCard.jsx": "5aada5f9b1d263d6a84196ce73cd20bcba7e105b191e7a2c18d0c728738d4bb4",
     "components/content/SideCard.jsx": "c302fd34adb79d2c46bbf71e956e253af98ea1f8c90978501c060f0101562111",
@@ -972,9 +1127,12 @@
     "components/content/VerseDivider.jsx": "6a2dc68cd5392f5450ca6bdc5996cdc7ed4aad6085236c26d0742c8c4d6090da",
     "components/core/BackLink.jsx": "a9cfd58ba5df2ad2c21a2c779507833e0504aa5082708dd6f4a23905e18dd548",
     "components/core/Button.jsx": "85d3290887e933991ff2f48541185d45b3840d843bf434ad221d484815df8f0b",
+    "components/core/FilterChip.jsx": "b9ca87885fb69b966023d068f12d15ae918d2050068983aac2353c97876ffd56",
     "components/core/Icon.jsx": "52f593314cf49cf57148098d0f9e2fed440d8b5e9f76c0a66ad8cfef5149f157",
     "components/core/IconButton.jsx": "6445ee101e713e57505400e3c89c3d06e786cdcb7c9ee71b0a23cc2708ff3847",
     "components/core/NavLink.jsx": "a312b10fa7ff0a63e54c480184d2c2602b37642fe65f0dc53452c58f9ad85d7d",
+    "components/core/SegmentedControl.jsx": "84dab55bbe50640133038e145bd5a56f6bbc70ac39b7a8138340e613d6870029",
+    "components/core/StatusBadge.jsx": "2e47be2f543eb57e5324742b53570dfd82474784a3010706d0e5da165ef49889",
     "components/core/Surface.jsx": "c7078a63f71cf65094fcb5f62fc558e5dbd78464050c4be528fbebf638f9722f",
     "components/core/TextLink.jsx": "d44d6150a17af7389e232a7e69878851b10826e0a34252171f3f545f92266e41",
     "components/feedback/EmptyState.jsx": "02204ae9df8c86f37e152df962c8d9f8bff853e2be1ebfac9fe21adf1fa30c01",
@@ -1018,6 +1176,13 @@
       "viewport": "700x690",
       "name": "Core · Button 与 Link",
       "subtitle": "10px 圆角 · 语义图标 · 状态合同"
+    },
+    {
+      "path": "components/core/selection-controls.card.html",
+      "group": "Components",
+      "viewport": "700x590",
+      "name": "Core · 筛选与状态",
+      "subtitle": "FilterChip · SegmentedControl · StatusBadge · 原生 HTML"
     },
     {
       "path": "components/core/surface-hierarchy.card.html",
@@ -1127,7 +1292,7 @@
       "group": "Colors",
       "viewport": "700x210",
       "name": "Quiet Base 中性色",
-      "subtitle": "90% 的界面住在这里"
+      "subtitle": "低噪音层级 · 必要次级文字对比度至少 4.5"
     },
     {
       "path": "guidelines/colors-text.card.html",
@@ -1141,7 +1306,7 @@
       "group": "Colors",
       "viewport": "700x140",
       "name": "温度色",
-      "subtitle": "仅 warm toast ·「需要留意」不是错误"
+      "subtitle": "warm 表达留意 · danger 只用于事实性失败"
     },
     {
       "path": "guidelines/experiment-surface.card.html",
